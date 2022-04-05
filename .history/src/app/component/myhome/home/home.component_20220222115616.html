@@ -1,0 +1,273 @@
+<app-inner-main-header></app-inner-main-header>
+<!-- Navbar -->
+<div class="main-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left side bar -->
+      <div class="left-side">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="right-side">
+        <div class="container-fluid">
+          <!-- Content Main Heading -->
+          <app-inner-header [headerData]="headerData"></app-inner-header>
+          <!-- ./ Content Main Heading -->
+          <!-- Profile Strength -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="profile_strength mb-4">
+                <div class="card">
+                  <div class="card-header fz20 ">
+                    {{language.profile_strength}}: {{ profileStatus()}}
+                  </div>
+                  <div class="card-body progress_card-body">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <!-- Progress Bar -->
+                          <div class="progress_bar d-none">
+                            <ul class="list-unstyled d-flex">
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                              <li>2</li>
+                            </ul>
+                          </div>
+                          <div class="row bt_progress">
+                            <div class="col" *ngFor="let pro of progress; let i = index">
+                              <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar"
+                                  [ngStyle]="{'width': pro==true?'100%':'0%'}" [attr.aria-valuenow]="pro==true?100:0"
+                                  aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="tick" *ngIf="completedProgress == i+1 || progress.length == i+1">
+                                  <img
+                                    [src]="completedProgress == i+1 && progress.length != i+1?'assets/images/tick.png':progress.length != completedProgress?'assets/images/star.png':'assets/images/star-active.png'" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- ./ Progress Bar -->
+                          <!-- Progress Content -->
+                          <div class="row">
+                            <div class="progress_content">
+                              <div class="media">
+                                <a class="d-flex mr-4" href="#">
+                                  <img src="assets/images/progress.png" alt="">
+                                </a>
+                                <div class="media-body">
+                                  <h5 class="fz18">
+                                    {{progress.length != completedProgress ?this.language.complete_your_profile_details:this.language.profile_is_complete}}
+                                  </h5>
+                                  <p class="fz16" *ngIf="progress.length != completedProgress"></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Progress Content -->
+                          <div class="pregress_action text-right" *ngIf="progress.length != completedProgress">
+                            <!-- <a href="#" class="btn radius-30 mt-3"><span>Not Now</span></a> -->
+                            <a [routerLink]="['/profile']" class="btn radius-30 mt-3 ok">{{language.ok}},
+                              {{language.continue}} </a> </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./ Profile Strength -->
+          <!-- Opportunities Posted -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="opportunities_posted">
+                <div class="card">
+                  <div class="card-header fz20">
+                    {{language.opportunities_posted}}
+                  </div>
+                  <div class="card-body">
+                    <div class="container-fluid">
+                      <!-- User Post -->
+                      <div class="posted mb-3" *ngFor="let data of listData; let i = index">
+                        <app-post-opportunities-list [data]="data" [page]="home" [index]="i" [capable]="capable"
+                          (updateStatus)="updateStatus($event)">
+                        </app-post-opportunities-list>
+                      </div>
+                      <div class="posted pb-5 pt-5 text-center" *ngIf="notFound == true">
+                        <p class="fz22">{{language.find_the_latest_opp}}</p>
+                      </div>
+                      <!-- ./ User Post -->
+
+
+
+                      <!-- See All Post -->
+                      <div class="see_all text-right mt-4 text_color_primary" *ngIf="listData.length>=3">
+                        <a (click)="goToSearch()"
+                          class="fz18 text_color_primary font_weight_600 cursor-pointer ">{{language.see_all}} </a>
+                      </div>
+                      <!-- ./ See All Post -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./ Opportunities Posted -->
+          <!-- Success Stories -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="successStories my-4">
+                <div class="card">
+                  <div class="card-header fz20">
+                    {{language.success_stories}}
+                  </div>
+                  <div class="card-body">
+                    <div class="successStories__slider">
+                      <div class="StoriesSlider">
+                        <!-- story one -->
+                        <div>
+                          <div class="StoriesSlider__item">
+                            <img src="assets/images/successStory/story1.jpg" class="img-fluid w-100">
+                            <div class="StoriesSlider__content">
+                              <!-- <a href="#">
+                                <h4 class="fz16 font_weight_500">{{language.clients_testimonials}}</h4>
+                              </a> -->
+                              <p class="fz15 font_weight_400 posted__text_color text-left">
+                                {{language.when_it_comes_to_business}}
+                              </p>
+                              <h6 class="text-right"> {{language.jamal_ali}}</h6>
+                              <p class="fz12 font_weight_400 posted__text_color text-right">
+                                {{language.ceo_express_food_co}} </p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- story two -->
+                        <div>
+                          <div class="StoriesSlider__item">
+                            <img src="assets/images/successStory/story2.jpg" class="img-fluid w-100">
+                            <div class="StoriesSlider__content">
+                              <!-- <a href="#">
+                                <h4 class="fz16 font_weight_500">{{language.clients_testimonials}}</h4>
+                              </a> -->
+                              <p class="fz15 font_weight_400 posted__text_color text-left">
+                                {{language.cabi_ride_investment}} </p>
+                              <h6 class="text-right">{{language.ahamd_saleh}}</h6>
+                              <p class="fz12 font_weight_400 posted__text_color text-right">
+                                {{language.pro_cabi_ride_hailing}}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- story three -->
+                        <div>
+                          <div class="StoriesSlider__item">
+                            <img src="assets/images/successStory/story3.jpg" class="img-fluid w-100">
+                            <div class="StoriesSlider__content">
+                              <!-- <a href="#">
+                                <h4 class="fz16 font_weight_500">{{language.clients_testimonials}}</h4>
+                              </a> -->
+                              <p class="fz15 font_weight_400 posted__text_color text-left">
+                                {{language.the_fact_of_being_in_need_for_a_company}} </p>
+                              <h6 class="text-right">{{language.mahmoud_abu_baker}}</h6>
+                              <p class="fz12 font_weight_400 posted__text_color text-right">
+                                {{language.pro_eatemad_home_healthcare}} </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="action_btn">
+                        <div class="stories_action_btn">
+                          <div class="prev">
+                            <i class="fas fa-caret-left"></i>
+                          </div>
+                          <div class="next">
+                            <i class="fas fa-caret-right"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./Success Stories -->
+          <!-- How ValueNow works? -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="howWorks mb-4">
+                <div class="card">
+                  <div class="card-header fz20">
+
+                    {{language.introduction_valunow}}
+                  </div>
+                  <div class="card-body">
+                    <div class="container-fluid">
+                      <div class="howWorks__body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="howWorks__video">
+                              <iframe width="498" height="280" src="https://www.youtube.com/embed/9eze7nzLLGA"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="howWorks__content">
+                              <a href="#">
+                                <h4 class="fz20 font_weight_500">Lorem Ipsum is simply dummy text.</h4>
+                              </a>
+                              <p class="fz16 font_weight_400 posted__text_color">
+                                <!-- Lorem ipsum dolor sit amet,
+                                consectetur
+                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Quis
+                                ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus
+                                vel
+                                facilisis. Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. -->
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./ How ValueNow works? -->
+        </div>
+      </div>
+      <!-- ./ All Content Right Sidebar -->
+    </div>
+  </div>
+</div>
+<app-inner-footer></app-inner-footer>
+
+
+<ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+
+  <div class="modal-body p-0">
+    <carousel>
+      <slide>
+        <img src="assets/images/successStory/story1.jpg" alt="first slide" style="display: block; width: 100%;">
+      </slide>
+      <slide>
+        <img src="assets/images/successStory/story2.jpg" alt="first slide" style="display: block; width: 100%;">
+      </slide>
+      <slide>
+        <img src="assets/images/successStory/story3.jpg" alt="first slide" style="display: block; width: 100%;">
+      </slide>
+    </carousel>
+  </div>
+
+</ng-template>

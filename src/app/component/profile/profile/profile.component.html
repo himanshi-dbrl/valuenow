@@ -1,0 +1,350 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left Side Bar -->
+      <div class="left-side">
+        <app-sidebar></app-sidebar>
+      </div>
+      <!-- ./ Left Side Bar -->
+      <!-- All Content Right Sidebar -->
+      <div class="right-side">
+        <div class="container-fluid">
+          <!-- Content Main Heading -->
+          <app-inner-header [headerData]="headerData"></app-inner-header>
+          <!-- ./ Content Main Heading -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="profile_strength mb-4">
+                <div class="card">
+                  <div class="card-header fz20 ">
+                    {{language.my_profile}}
+                  </div>
+                  <div class="card-body progress_card-body">
+
+                    <!-- Sign up form -->
+                    <div class="login_signin_form ">
+                      <form [formGroup]="profileForm">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="firstName">{{language.first_name}} </label>
+                              <input type="text" class="form-control" id="firstName"
+                                placeholder="{{language.enter}} {{language.first_name}}" formControlName="first_name"
+                                [ngClass]="{'is-invalid':f.first_name.errors && submitted}">
+                              <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                                <div
+                                  *ngIf="(submitted && f.first_name.errors.required) ">
+                                  {{language.first_name}} {{language.is_required}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="lastName">{{language.last_name}}</label>
+                              <input type="text" class="form-control" id="lastName"
+                                placeholder="{{language.enter | titlecase}} {{language.last_name | titlecase}}"
+                                formControlName="last_name" [ngClass]="{'is-invalid':f.last_name.errors && submitted}">
+                              <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                                <div
+                                  *ngIf="(submitted && f.last_name.errors.required)">
+                                  {{language.last_name}} {{language.is_required}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class=" col-md-6">
+                            <div class="form-group">
+                              <label for="datebirth">{{language.dob}}</label>
+                              <input type="text" class="form-control" bsDatepicker [bsConfig]="bsConfig"
+                                [isOpen]="isOpen" [minDate]="minDate" [maxDate]="maxDate" placement="bottom"
+                                id="datebirth" placeholder="DD-MM-YYYY" formControlName="dob" disabled
+                                [ngClass]="{'is-invalid':f.dob.errors && submitted}">
+                              <button class="date-btn" (click)="isOpen = !isOpen" type="button"><i
+                                  class='far fa-calendar-alt'></i></button>
+
+                              <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && f.dob.errors.required ">
+                                  {{language.dob}} {{language.is_required}}
+                                </div>
+                                <div *ngIf="f.dob.errors.bsDate">
+                                  {{language.fill_valid_date_formate}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="gender">{{language.gender}} </label>
+                              <div class="d-flex padding-top">
+                                <div class="form-check">
+                                  <input id="male" class="form-check-input" type="radio" value="1"
+                                    formControlName="gender" checked>
+                                  <label class="form-check-label" for="male">
+                                    {{language.male}}
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input id="female" class="form-check-input" type="radio" value="2"
+                                    formControlName="gender">
+                                  <label class="form-check-label" for="female">
+
+                                    {{language.female}}
+                                  </label>
+                                </div>
+                              </div>
+                              <div *ngIf="submitted && f.gender.errors" class="phone_number_validate">
+                                <div *ngIf="f.gender.errors.required"> {{language.gender}} {{language.is_required}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="mobileNo">{{language.mobile_no}} </label>
+                              <div class="mobleNo_select form-control d-flex">
+
+                                <ngx-select-dropdown (change)="countryCodeChanged($event)" [config]="config"
+                                  [disabled]="isMobileDisabled" class="countryCode" [options]="dataCountryCode"
+                                  formControlName="country_code" [multiple]="false"
+                                  [ngClass]="{'is-invalid':f.country_code.errors && submitted}">
+                                </ngx-select-dropdown>
+                                <input type="text" id="mobileNo" class="mobileNo" placeholder="Phone Number"
+                                  (keyup)="onKeyupPhone()" formControlName="phone_number"
+                                  [attr.disabled]="isMobileDisabled? '' : null"
+                                  [ngClass]="{'is-invalid':f.phone_number.errors && submittedPhone}">
+
+                              </div>
+                              <div class="row">
+                                <div class="col-7">
+                                  <small class="font_weight_600 fz8"><strong>{{language.note}}
+                                    </strong>{{language.do_not_add}} </small>
+                                </div>
+                                <div class="col-5">
+                                  <button type="button"
+                                    class="btn btn-link float-right text-primary font_weight_600 fz11 p-0"
+                                    [ngClass]="{'is_verified_email':(userData.is_phone_verified != 0 && isChangePhone == false && isMobileDisabled == true) || (userData.is_phone_verified != 0 && isChangePhone == false), 'is_not_submit': isMobileDisabled == false || isChangePhoneCheck == true}"
+                                    (click)="(userData.is_phone_verified != 0 && isChangePhone == false && isMobileDisabled == true) ?'':verifyPhone(resend_link, false)">{{(userData.is_phone_verified != 0 && isChangePhone == false && isMobileDisabled == true) || (userData.is_phone_verified != 0 && isChangePhone == false)?language.verified:language.verify}}</button>
+                                  <button type="button" (click)="isMobileDisabled==false ?phoneOk():editPhone()"
+                                    class="btn btn-link float-right text-primary mr-3 font_weight_600 small_edit p-0 fz11">{{isMobileDisabled==false ?language.ok:language.edit}}</button>
+                                </div>
+                              </div>
+                              <div *ngIf="submittedPhone && profileForm.get('email').invalid"
+                                class="phone_number_validate">
+                                <div *ngIf="submittedPhone && profileForm.get('email').invalid">
+                                  {{language.phone_number_must_be_number_at_least_digit}} </div>
+                              </div>
+                              <div *ngIf="submitted && f.phone_number.errors" class="phone_number_validate">
+                                <div *ngIf="f.phone_number.errors.required">{{language.mobile_no}}
+                                  {{language.is_required}}
+                                </div>
+                                <div *ngIf="f.phone_number.errors.pattern ">
+                                  {{language.phone_number_must_be_number_at_least_digit}}</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="email">{{language.email_address}} </label>
+                              <input type="email" class="form-control" id="email" placeholder="example@gmail.com"
+                                formControlName="email" [attr.disabled]="isEmailDisabled? '' : null"
+                                (keyup)="onKeyupEmail()" [ngClass]="{'is-invalid':f.email.errors && submittedEmail}">
+                              <div *ngIf="submittedEmail && profileForm.get('email').invalid" class="invalid-feedback">
+                                <div *ngIf="submittedEmail && profileForm.get('email').invalid">
+                                  {{language.email_must_be_valid}}
+                                </div>
+                              </div>
+                              <div *ngIf="submitted && profileForm.get('email').invalid" class="invalid-feedback">
+                                <div *ngIf="submittedEmail && profileForm.get('email').invalid">
+                                  {{language.email_must_be_valid}}
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-6">
+                                  <small class="font_weight_600"></small>
+                                </div>
+                                <div class="col-6">
+                                  <button type="button"
+                                    class="btn btn-link float-right text-primary font_weight_600 fz11 p-0"
+                                    [ngClass]="{'is_verified_email':(userData.email_verified_at != null && isChangeEmail == false && isEmailDisabled == true) || (userData.email_verified_at != null && isChangeEmail == false), 'is_not_submit': isEmailDisabled == false || isChangeEmailCheck == true}"
+                                    (click)="(userData.email_verified_at != null && isChangeEmail == false && isEmailDisabled == true) ?'':verifyEmail(link_confirm, false)">{{(userData.email_verified_at != null && isChangeEmail == false && isEmailDisabled == true) || (userData.email_verified_at != null && isChangeEmail == false)?verified:verify}}</button>
+                                  <button type="submit"
+                                    class="btn btn-link float-right text-primary mr-3 font_weight_600 small_edit p-0 fz11"
+                                    (click)="isEmailDisabled==true?editEmail():emailOk()">{{isEmailDisabled==true?edit:ok}}</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="qualification">{{language.highest_qualification}} </label>
+                              <div class="pwd_show_icon">
+                                <input type="text" class="form-control" id="qualification"
+                                  placeholder="{{language.enter_qualification}} " formControlName="qualification"
+                                  [ngClass]="{'is-invalid':f.qualification.errors && submitted}">
+                                <div *ngIf="submitted && f.qualification.errors" class="invalid-feedback">
+                                  <div
+                                    *ngIf="(submitted && f.qualification.errors.required) || (submitted && f.qualification.errors.cannotContainSpace)">
+                                    {{language.highest_qualification}} {{language.is_required}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="country">{{language.country}} </label>
+                              <ngx-select-dropdown [config]="config" (change)="countryChanged($event.value)"
+                                [options]="country" formControlName="country" [multiple]="false"
+                                [ngClass]="{'is-invalid':f.country.errors && submitted}">
+                              </ngx-select-dropdown>
+                              <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                <div *ngIf="submitted && f.country.errors.required">
+                                  {{language.country}} {{language.is_required}}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="state">{{language.state_region}} </label>
+                              <input type="text" class="form-control" id="state"
+                                placeholder="{{language.enter_state_region}} " formControlName="state">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="city">{{language.city}} </label>
+                              <input type="text" class="form-control" id="city"
+                                placeholder="{{language.enter}} {{language.city}} " formControlName="city"
+                                [ngClass]="{'is-invalid':f.city.errors && submitted}">
+                              <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                <div
+                                  *ngIf="(submitted && f.city.errors.required) || (submitted && f.city.errors.cannotContainSpace)">
+                                  {{language.city}} {{language.is_required}}
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="ResidentialAddress">{{language.residential_address}} </label>
+                              <div class="pwd_show_icon">
+                                <input type="text" class="form-control" id="ResidentialAddress"
+                                  placeholder="{{language.enter_address}} " formControlName="address"
+                                  [ngClass]="{'is-invalid':f.address.errors && submitted}">
+                                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                  <div
+                                    *ngIf="(submitted && f.address.errors.required) || (submitted && f.address.errors.cannotContainSpace)">
+
+                                    {{language.residential_address}} {{language.is_required}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="text-center login_signup_email mb-4 ">
+                              <button type="submit" (click)="update()"
+                                class="btn rounded-pill mt-5">{{language.save_change}}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                      </form>
+                    </div>
+                    <!-- ./Sign up form -->
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./ Profile Strength -->
+
+
+
+
+        </div>
+
+      </div>
+      <!-- ./ All Content Right Sidebar -->
+    </div>
+  </div>
+  <app-inner-footer></app-inner-footer>
+  <!-- <app--footer></app-footer> -->
+  <!-- Modal -->
+  <ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-header border-0">
+      <h5 class="modal-title" id="resend_link"></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body px-5 pt-0">
+      <div class="login_signin_form">
+        <form [formGroup]="verifyOTPForm">
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <div class="form-group">
+                <h3 class="fz20 text-center mb-3">{{language.please_enter_your_otp_code}} </h3>
+                <input type="text" class="form-control text-center otp_text" id="registering" formControlName="otp"
+                  placeholder="* * * *" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter OTP'"
+                  [ngClass]="{ 'is-invalid':submittedOTP && verifyOTPForm.get('otp').invalid }" />
+                <div *ngIf="submittedOTP && verifyOTPForm.get('otp').invalid" class="invalid-feedback">
+                  <div *ngIf="verifyOTPForm.get('otp').invalid">{{language.otp_must_be_digit}} </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="text-center login_signup_email  ">
+                <button type="button" class="btn cancel radius-30 mt-2 mt-sm-4 mb-3 mb-sm-5 mr-0 mr-sm-2"
+                  (click)="verifyPhone(resend_link, true)">{{language.resend}} </button>
+                <button type="submit" class="btn radius-30 mt-2 mt-sm-4 mb-3 mb-sm-5 ml-0 ml-sm-2"
+                  (click)="verifyOpt()">{{language.submit}} </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </ng-template>
+  <!-- ./ Modal -->
+  <!-- Modal -->
+  <ng-template #link_confirm let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-header border-0">
+      <h5 class="modal-title" id="link_confirm"></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeDialog()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body px-5 pt-0 pb-3">
+      <div class="login_signin_form text-center">
+        <h4>{{language.verification_link}} </h4>
+        <p>{{language.kindly_check_and_verify}} </p>
+        <div class="text-center login_signup_email  ">
+          <button type="submit" class="btn radius-30 mt-4 mb-4" (click)="closeDialog()">{{language.ok}} </button>
+        </div>
+        <p>{{language.if_you_have_not_received_it_yet}} <a href="javaScript:void(0)"
+            (click)="verifyEmail(link_confirm, true)">{{language.resend}} </a>
+        </p>
+      </div>
+
+    </div>
+  </ng-template>
+
+  <!-- ./ Modal -->
+  <!-- main wrapper -->

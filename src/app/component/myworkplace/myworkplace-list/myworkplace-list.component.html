@@ -1,0 +1,186 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <div class="myBusiness">
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="myBusiness_card mb-3">
+                                    <div class="card">
+                                        <div class="card-header fz20">
+                                            {{language.investor_workplace}}
+                                        </div>
+                                        <div class="card-body">
+                                            <app-myworkplace *ngIf="listData.length ==0"></app-myworkplace>
+                                            <div class="container-fluid" *ngIf="listData.length > 0">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <!-- Add Business Btn -->
+                                                        <div class="add_business d-flex mb-4">
+                                                            <div
+                                                                class="text-left login_signup_email login_signup_btn   ">
+                                                                <a [routerLink]="['/workplace/add']"
+                                                                    class="btn radius-30"> <i
+                                                                        class="fas fa-plus-circle mr-3"></i>{{language.add_investment_business}}
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Add Business Btn -->
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+
+                                                        <!-- User Post -->
+                                                        <div class="posted my-4"
+                                                            *ngFor="let data of listData;let i = index; TrackBy: commonService.trackByData">
+                                                            <div class="row">
+                                                                <div class="col-md-7">
+                                                                    <div class="posted_img">
+                                                                        <div class="media">
+                                                                            <!-- user images -->
+                                                                            <div
+                                                                                class="mr-3 rounded-circle rounded-circle-div">
+                                                                                <img src="{{profileUrl(data.user.image, data.user.gender)}}"
+                                                                                    class="round-img" alt="...">
+                                                                            </div>
+                                                                            <div class="media-body">
+                                                                                <div class="posted__user-details">
+                                                                                    <!-- user name -->
+                                                                                    <p class="fz16 font-italic">
+                                                                                        {{language.posted_by}}
+                                                                                        {{data.user.first_name | titlecase }}
+                                                                                        {{data.user.last_name | titlecase}}
+                                                                                    </p>
+                                                                                    <!-- user view and bookmark -->
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="posted__sort--details">
+                                                                        <!-- user post heading -->
+                                                                        <a (click)="details(data.id)">
+                                                                            <h4 class="fz20">
+                                                                                {{(data.investment_name.length>50)? (data.investment_name  | titlecase | slice:0:50)+ '...':(data.investment_name | titlecase)}}
+
+                                                                            </h4>
+                                                                        </a>
+                                                                        <!-- user post sort descriptions -->
+                                                                        <p class="mb-0 fz16 posted__text_color">
+                                                                            {{ (data.description.length>150)? (data.description | slice:0:150)+'...':(data.description) }}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-md-5">
+                                                                    <div class="posted__images mt-3">
+                                                                        <div
+                                                                            class="list-unstlyed mb-0 d-flex justify-content-start justify-content-md-end">
+                                                                            <div *ngFor="let image of imageDataChange(data.get_files); let i = index;"
+                                                                                class="image_more_show">
+                                                                                <div class="posted__images--more"
+                                                                                    *ngIf="i < '3'"
+                                                                                    (click)="openVerticallyCentered(resend_link, data.get_files)">
+                                                                                    <img src="{{image}}" alt=""
+                                                                                        class="rounded-lg" width="72"
+                                                                                        height="56">
+                                                                                    <div class="more"
+                                                                                        *ngIf="imageDataChange(data.get_files).length > '3' && i == '2'">
+                                                                                        {{language.more}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- user Galary -->
+                                                                    <div
+                                                                        class="posted__date text-left text-md-right mt-3">
+                                                                        <a (click)="edit(data.id)"
+                                                                            class="btn text-white rounded-pill btn-edit mx-1"><i
+                                                                                class="fas fa-edit"></i></a>
+                                                                        <button
+                                                                            class="btn text-white rounded-pill btn-delete"
+                                                                            (click)="deleteOpenVerticallyCentered(deleteModel,data, i)"><i
+                                                                                class="fas fa-times"></i></button>
+                                                                    </div>
+                                                                    <div
+                                                                        class="posted__date text-left text-md-right mt-2 mb-2 d-flex justify-content-start  justify-content-md-end">
+                                                                        <!-- user posted Date -->
+                                                                        <!-- <p class="mb-0 fz16 posted__text_color mr-3">
+                                                                            Revision left : <span
+                                                                                class="text-success">0</span></p> -->
+                                                                        <p class="mb-0 fz16 posted__text_color">
+                                                                            {{data.created_at | date:'MMM dd,yyyy'}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- ./ User Post -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ./ All Content Right Sidebar -->
+        </div>
+    </div>
+    <app-inner-footer></app-inner-footer>
+    <!-- <app--footer></app-footer> -->
+
+    <!-- main wrapper -->
+
+    <!-- Modal -->
+    <ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-body p-0">
+            <app-common-slider [images]="sliderImg"></app-common-slider>
+        </div>
+
+    </ng-template>
+
+    <!-- Modal -->
+    <ng-template #deleteModel let-modal class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-body py-5 text-center">
+            <h5>{{language.are_you_sure_you_want_to_delete}} <span
+                    class="busines_name_color">{{workplace.investment_name}}</span>?
+            </h5>
+        </div>
+        <div class="modal-footer">
+            <div class="posted__date d-flex justify-content-center w-100">
+                <button class="btn text-white rounded-pill btn-edit mr-1" (click)="modal.dismiss('Cross click')">
+                    {{language.no}}</button>
+                <button class="btn text-white rounded-pill btn-delete ml-1" (click)="deletePost()">
+                    {{language.yes}}</button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+    <!-- ./ Modal -->

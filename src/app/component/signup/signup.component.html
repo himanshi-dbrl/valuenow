@@ -1,0 +1,224 @@
+<app-header></app-header>
+<!-- main wrapper -->
+<div class="main-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Login -->
+        <div class="login_page">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-md-11">
+                <!-- Title -->
+                <div class="login__page-first text-center">
+                  <h3 class="login__page--title ">{{language.fill_in_the_details_below}}</h3>
+                </div>
+                <div class="login_signin_form ">
+                  <form [formGroup]="signupForm">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="registering">{{language.register_as}} </label>
+
+                          <ngx-select-dropdown [config]="configType" (change)="countryType($event.value)"
+                            [options]="typeData" formControlName="type"
+                            [ngClass]="{'is-invalid':f.type.errors && submitted}">
+                          </ngx-select-dropdown>
+                          <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                            <div *ngIf="f.type.errors.required">{{language.user_type}} {{language.is_required}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="firstName">{{language.first_name}} </label>
+                          <input type="text" class="form-control mb-0 mb-md-4" formControlName="first_name"
+                            placeholder="{{language.first_name}}"
+                            [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                          <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                            <div
+                              *ngIf="(submitted && f.last_name.errors.required) || (submitted && f.last_name.errors.cannotContainSpace)">
+                              {{language.first_name}} {{language.is_required}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="lastName">{{language.last_name}}</label>
+                          <input type="text" class="form-control mb-0 mb-md-4" formControlName="last_name"
+                            placeholder="{{language.last_name}}"
+                            [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                          <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                            <div
+                              *ngIf="(submitted && f.last_name.errors.required) || (submitted && f.last_name.errors.cannotContainSpace)">
+                              {{language.last_name}} {{language.is_required}}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="gender"> {{language.gender}} </label>
+                          <div class="d-flex padding-top">
+                            <div class="form-check">
+                              <input id="male" class="form-check-input" type="radio" formControlName="gender"
+                                name="gender" value="1">
+                              <label class="form-check-label" for="male">
+                                {{language.male}}
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input id="female" class="form-check-input" type="radio" formControlName="gender"
+                                name="gender" value="2">
+                              <label class="form-check-label" for="female">
+                                {{language.female}}
+                              </label>
+                            </div>
+                            <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                              <div *ngIf="f.gender.errors.required"> {{language.gender}} {{language.is_required}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="mobileNo">{{language.mobile_no}} </label>
+                          <div class="mobleNo_select form-control d-flex">
+                            <ngx-select-dropdown (change)="countryCodeChanged($event.value)" class="countryCode"
+                              [config]="configCountryCode" id="countryCode" [options]="countryCode"
+                              formControlName="country_code" [multiple]="false" id="countryCode"
+                              [ngClass]="{'is-invalid':submitted && f.country_code.errors}">
+                            </ngx-select-dropdown>
+
+                            <input type="text" formControlName="phone_number" class="mobileNo"
+                              [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }">
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <small class="font_weight_600 fz8"><strong>{{language.note}}
+                                </strong>{{language.do_not_add}} </small>
+                            </div>
+                          </div>
+                          <div *ngIf="submitted && f.phone_number.errors" class="phone_number_validate">
+                            <div *ngIf="f.phone_number.errors.required">{{language.mobile_no}} {{language.is_required}}
+                            </div>
+                            <div *ngIf="f.phone_number.errors.pattern ">
+                              {{language.phone_number_must_be_number_at_least_digit}}</div>
+                          </div>
+                          <br>
+                          <div *ngIf="submitted && f.country_code.errors" class="phone_number_validate">
+                            <div *ngIf="f.country_code.errors.required">{{language.country_code}}
+                              {{language.is_required}} </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="email">{{language.email_address}} </label>
+                          <input type="email" class="form-control" formControlName="email"
+                            placeholder="{{language.email}}" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">{{language.mail_is_required}} </div>
+                            <div *ngIf="f.email.errors.email || f.email.errors.pattern">
+                              {{language.email_must_be_a_valid_email_address}} </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="password">{{language.password}} </label>
+                          <div class="pwd_show_icon">
+                            <input type="{{password}}" class="form-control" formControlName="password"
+                              placeholder="{{language.password}}"
+                              [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                            <span>
+                              <i class="fa toggle-password {{passwordClass}}" toggle="#password" aria-hidden="true"
+                                (click)="showPassword()"></i>
+                            </span>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                              <div
+                                *ngIf="f.password.errors.required || f.password.errors.cannotContainSpace || f.password.errors.minlength || f.password.errors.maxlength">
+                                {{language.password_must_at_least}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="confirmPassword">{{language.confirm_password}} </label>
+                          <div class="pwd_show_icon">
+                            <input type="{{confirmPassword}}" class="form-control" formControlName="confirm_password"
+                              placeholder="{{language.confirm_password}}"
+                              [ngClass]="{ 'is-invalid': submitted && f.confirm_password.errors }">
+                            <span>
+                              <i class="fa toggle-password {{consfirmPasswordClass}}" toggle="#confirmPassword"
+                                aria-hidden="true" (click)="showConfirmPassword()"></i>
+                            </span>
+                            <div *ngIf="submitted && f.confirm_password.errors" class="invalid-feedback">
+                              <div *ngIf="f.confirm_password.errors.required || f.confirm_password.errors.mustMatch">
+                                {{language.pass_must_match}} </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="recapcha text-center">
+                          <recaptcha formControlName="recaptcha"></recaptcha>
+                          <!-- <re-captcha formControlName="recaptcha"></re-captcha> -->
+                          <div *ngIf="submitted && f.recaptcha.errors">
+                            <div *ngIf="f.recaptcha.errors" class="privayAccept">{{language.check_google_recaptcha}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="d-flex justify-content-center align-items-center">
+                            <div class="form-check check_accept">
+                              <input class="form-check-input" id="defaultCheck1" type="checkbox" value=""
+                                formControlName="term_policy"
+                                [ngClass]="{ 'is-invalid': submitted && f.confirm_password.errors }">
+                              <span class="form-check-label p-0 pr-1 text-dark" for="defaultCheck1">
+                                {{language.by_creating_account}} <a href="javascript:void(0);"
+                                  (click)="openVerticallyCentered(resend_link)">{{language.terms_of_services_privacy_policy}}
+                                </a>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="submitted && f.term_policy.errors">
+                          <div *ngIf="f.term_policy.errors" class="privayAccept"> {{language.accept_privacy_policy}}
+                          </div>
+                        </div>
+
+                        <div class="text-center login_signup_email  ">
+                          <a class="btn rounded-pill mt-5" (click)="registerNow()">{{language.register_now }} </a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-header border-bottom-0">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body px-5">
+      <div class="privacy_policy">
+        <h2 class="fz30">{{language.terms_and_conditions_of_use}} </h2>
+        <!-- <p class="fz18">We recommend you to go through our company's policy.</p> -->
+        <div class="body_scroll" [innerHTML]="terms">
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <!-- main wrapper -->

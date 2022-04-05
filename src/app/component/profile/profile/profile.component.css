@@ -1,0 +1,40 @@
+.phone_number_validate {
+    color: #dc3545;
+    font-size: 80%;
+    float: left;
+}
+
+.mobleNo_select {
+    padding: 0px;
+    background: #EBEBE4;
+}
+
+.mobleNo_select .mobileNo {
+    margin-top: 0px;
+    border-radius: 0px 10px 10px 0px;
+}
+.date-btn{
+    position: absolute;
+    top: 32px;
+    right: 15px;
+    width: 54px;
+    height: 54px;
+    border-radius: 0px 10px 9px 0;
+    background: #4595D0;
+    border: 0;
+    font-size: 27px;
+    color: #fff;
+    transition: all 0.5s;
+}
+.date-btn:hover{
+    background: #387eaf;
+}
+.is_verified_email{
+    color: green !important;
+    font-weight: bold;
+}
+:lang(ar) .date-btn {
+    left: 15px;
+    right: initial;
+    border-radius: 10px 0px 0px 9px;
+}

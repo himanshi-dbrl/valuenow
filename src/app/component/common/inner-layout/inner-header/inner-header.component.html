@@ -1,0 +1,30 @@
+<div class="content_main_heading">
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="welcome">
+                <h3 class="fz20 mb-0">{{headerData.title}}</h3>
+                <ul class="list-unstyled d-flex">
+                    <li>{{headerData.description}}</li>
+                    <li class="active">{{language.app_name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="welcome_name text-center pt-2">
+                <p class="fz22">{{language.welcome}} <span
+                        class="text-capitalize">{{userData.first_name +' '+userData.last_name}}</span></p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="welcome_select mb-4">
+                <span onclick="myFunctionDrow()"
+                    class="dropbtn">{{userData.type==1?language.entrepreneur:language.investors}}
+                </span>
+                <div id="myDropdown2" class="dropdown-content select_list  list-unstyled">
+                    <li *ngIf="userData.type ==2" (click)="setUserType(1)">{{language.entrepreneur}}</li>
+                    <li *ngIf="userData.type ==1" (click)="setUserType(2)">{{language.investors}}</li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

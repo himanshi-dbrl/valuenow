@@ -1,0 +1,95 @@
+<app-header></app-header>
+<div class="main-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="login_page">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="login__page-first">
+                      <h3 class="login__page--title ">{{language.login}}</h3>
+                    </div>
+                    <div class="login_signin_form ">
+                      <form [formGroup]="loginForm">
+                        <div class="form-group mb-4">
+                          <label for="email">{{language.email}}</label>
+                          <input type="email" class="form-control" formControlName="email"
+                            placeholder="{{language.email}}"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">{{language.email}} {{language.is_required}}</div>
+                            <div *ngIf="f.email.errors.email">{{language.email_must_be_a_valid_email_address}}</div>
+                          </div>
+
+                        </div>
+                        <div class="form-group">
+                          <label for="password"> {{language.password}} </label>
+                          <div class="pwd_show_icon">
+                            <input type="{{password}}" class="form-control" placeholder=" {{language.password}} "
+                              formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                              <div *ngIf="f.password.errors.required">{{language.password}} {{language.is_required}}
+                              </div>
+                            </div>
+                            <span>
+                              <i class="fa toggle-password fa-eye"
+                                [ngClass]="{'fa-eye':password==passwordType, 'fa-eye-slash': password == textType}"
+                                toggle="#password" aria-hidden="true" (click)="showPassword()"></i>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group form-check allready_menber text-right">
+                          <a [routerLink]="['/forgot-password']"> {{language.forgot_password}}? </a>
+                        </div>
+                        <div class="text-center login_signup_email  ">
+                          <button type="submit" class="btn rounded-pill mt-3"
+                            (click)="loginNow()">{{language.login}}</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-lg-1 d-lg-flex justity-content-center align-items-center d-none d-lg-block">
+                    <div class="text-center login__or login__or_v fz14 mt-4">
+                      <span>or</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-1 d-block d-lg-none">
+                    <div class="text-center login__or fz14 mt-4">
+                      <span>or</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="vid_links_margin via_links_padding text-center">
+                      <div class="row mb-4">
+                        <div class="col-lg-12">
+                          <div class="signin_via_link mb-5">
+                            <a class="btn btn-outline-secondary fz14 link_google" (click)="signInWithGoogle()">
+                              <img src="./assets/images/google_icon.png" alt="google link" class="mr-2" />
+                              {{language.login_via_google}} </a>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="signin_via_link">
+                            <a class="btn btn-outline-secondary fz14 link_facebook" (click)="signInWithFB()">
+                              <img src="./assets/images/facebook_icon.png" alt="facebook link" class="mr-2" />
+                              {{language.login_via_facebook}} </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="allready_menber fz14 text-center  ">
+                        {{language.not_a_member}} <a [routerLink]="['/signup']"> {{language.sign_up}} </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

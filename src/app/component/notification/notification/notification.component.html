@@ -1,0 +1,67 @@
+<app-inner-main-header></app-inner-main-header>
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <!-- Profile Strength -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="profile_strength mb-4">
+                                <div class="card">
+                                    <div class="card-header fz20 ">
+                                        {{language.notification}}
+                                    </div>
+                                    <div class="card-body progress_card-body px-0">
+                                        <!-- Notification -->
+                                        <div class="notification-title" *ngFor="let data of datas; let i = index;">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="notify-icon">
+                                                        <i *ngIf="data.type == 'Profile'" class="fa fa-user"></i>
+                                                        <i *ngIf="data.type == 'Admin'" class="fa fa-bullhorn"> </i>
+                                                        <i *ngIf="data.type == 'Post'" class="fa fa-bell fz12"> </i>
+                                                        <img *ngIf="data.type == 'change_password'"
+                                                            src="assets/images/lock_active.png" alt="" />
+                                                    </div>
+                                                    <p>{{data.body}} <a *ngIf="data.post_id !=0" class="cursor-pointer "
+                                                            (click)="post(data.post_id)">{{language.click_to_view}} </a>
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4 ">
+                                                    <div class="right-text-notyfy text-center text-md-right">
+                                                        <h5>{{addTime(data.created_at) | date:'mediumDate'}}</h5>
+                                                        <h6>{{addTime(data.created_at) | date:'shortTime'}}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="payment-invoice pb-5 pt-5 text-center" *ngIf="datas.length ==0">
+                                            <p class="fz22">{{language.no_noti_all_caught}}</p>
+                                        </div>
+                                        <!-- ./Notification -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ Profile Strength -->
+                </div>
+            </div>
+            <!-- ./ All Content Right Sidebar -->
+        </div>
+    </div>
+    <app-inner-footer></app-inner-footer>
+    <!-- <app--footer></app-footer> -->
+
+    <!-- main wrapper -->

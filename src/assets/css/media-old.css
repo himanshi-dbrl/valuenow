@@ -1,0 +1,178 @@
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { 
+    .theam-main-navbar{
+        padding-top: 0;
+    }
+    .theam-main-navbar .navbar-brand{
+        padding-top: 0rem;
+        margin-top: 0rem;
+        margin-left: 0px;
+        width: auto;
+        z-index: 9;
+    }
+    .menu__extra--button {
+        position: absolute;
+        right: 15px;
+        top: 25px;
+    }
+    .menu_activity {    
+        position: absolute;
+        top: 20px;
+        z-index: 9;
+        right: 40px;
+    }
+    .right-side{
+        padding: 15px 0;
+    }
+    .card-body{
+        padding: 1.25rem .25rem;
+    }
+    .progress_card-body{
+     padding: 1.25rem;   
+    }
+    .welcome{
+        text-align: center;
+        padding-top: 20px;
+    }
+    .welcome ul{
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    .welcome_select{
+        margin: auto;
+    }
+.posted__date {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+ }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .theam-main-navbar .navbar-brand{
+        margin-left: 0;
+    }
+    .navbar-expand-sm .navbar-collapse{
+        display: none !important;
+    }
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .theam-main-navbar .navbar-brand{
+        margin-left: 0;
+         width: auto;
+    }
+    .change_language .select2{
+        width: 80px !important;
+    }
+    
+ }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    .theam-main-navbar .nav-link{
+        padding: .5rem 1rem !important;
+    }
+    .valuate_list ul li {
+        float: left;
+        width: 41%;
+        position: relative;
+    }
+    
+ }
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    .theam-main-navbar .nav-link{
+        padding: .5rem 1.5rem !important;
+    }
+}
+
+@media screen and (max-width:991px){
+    .via_links_padding {
+        padding-top: 0px;
+    }
+    .left-side{
+        margin-left: -280px;
+    }
+    .right-side{
+        width: 100%;
+    }
+     .payment-invoice ul{
+        padding: 0;
+    }
+    .menu_activity {
+        position: absolute;
+        top: 20px;
+        z-index: 9;
+        right: 40px;
+    }
+    .valuate_list ul li{
+        width: 100%;
+    }
+    .valuate_list ul li:nth-child(even) {
+        margin-left: 0px;
+    }
+}
+@media screen and (min-width: 768px){
+    .bg_back{
+        display: none;
+    }
+}
+@media screen and (max-width: 767px){
+     .chat_container {
+        display: flex;
+        border-radius: 10px;
+        background: #fff;
+        overflow: hidden;
+        flex-wrap: wrap;
+        position: relative;
+    }
+    .message {
+        width: 100%;
+        position: absolute;
+        left: 100%;
+    }
+    .chat:before{
+        display: none;
+    }
+    .bg_back{
+        display: block;
+    }
+    .chat_user_list li.active::after{
+        display: none;
+    }
+    .welcome_name.text-center.pt-2{
+        margin-top: 0px !important;
+    }
+    .valuete_testmorial .item:not(:last-child) .textmorials{
+        border-right: 0;
+        border-bottom: 2px solid #e4e4e4;
+    }
+}
+@media screen and (min-width:0\0) {
+    select {
+        background: none\9;
+        padding: 5px\9;
+    }
+}
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 783px;    
+}
+#resend_link .modal-dialog {
+    max-width: 590px;
+}
+ .progress_card-body{
+     padding: 1.25rem;   
+    }
+}
+ @media screen {
+    .select2 {
+        width: 100% !important;
+    }
+}

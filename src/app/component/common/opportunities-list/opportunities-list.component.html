@@ -1,0 +1,122 @@
+<!-- User Post -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="posted_img">
+            <div class="media">
+                <!-- user images -->
+                <div class="mr-3 rounded-circle rounded-circle-div">
+                    <img src="{{profileUrl(data.get_post_user.image, data.get_post_user.gender)}}" alt="..."
+                        class="round-img">
+                </div>
+                <div class="media-body">
+                    <div class="posted__user-details">
+                        <!-- user name -->
+                        <p class="fz16 font-italic" *ngIf="data.get_post_user != undefined">{{language.posted_by}}
+                            {{data.get_post_user.first_name | titlecase }}
+                            {{data.get_post_user.last_name | titlecase}}</p>
+                        <!-- user view and bookmark -->
+                        <ul>
+                            <li>
+                                <img src="assets/images/eye.png" />
+                                <span>{{data.view_count}}</span>
+                            </li>
+                            <li>
+                                <img src="assets/images/bookmark.png" />
+                                <span>{{data.total_bookmarked_count}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="posted__date text-left text-md-right">
+            <!-- user posted Date -->
+            <p class="mb-0 fz16 posted__text_color mb-2">{{data.created_at | date:'MMM dd,yyyy'}}</p>
+            <button class="btn rounded-pill btn-valuate" *ngIf="data.status ==0"
+                (click)="featureId(data.id, index)">{{language.feature_it}}</button>
+            <button class="btn rounded-pill btn-valuate btn-valuate-success"
+                *ngIf="data.status ==1">{{language.featured}}</button>
+
+            <!-- <span class="information">
+                <span tooltip="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." container="body">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </span>
+            </span> -->
+            <a (click)="edit(data.id)" class="btn text-white rounded-pill btn-edit  mx-1" *ngIf="data.status ==0"><i
+                    class="fas fa-edit"></i></a>
+            <button *ngIf="data.status ==0" class="btn text-white rounded-pill btn-delete"
+                (click)="deleteOpenVerticallyCentered(deleteModel,data, index)"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="posted__sort--details">
+            <!-- user post heading -->
+            <a (click)="details(data.id)" class="cursor_pointer">
+                <h4 class="fz20">
+                    {{(data.get_business.business_name.length>50)? (data.get_business.business_name| titlecase | slice:0:50)+'...':(data.get_business.business_name| titlecase)}}
+                </h4>
+            </a>
+            <!-- user post sort descriptions -->
+            <p class="mb-0 fz16 posted__text_color">{{
+                    (data.description== null?"":data.description.length>150)? (data.description |
+                    slice:0:150)+'...':(data.description)}}
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- user Galary -->
+        <div class="posted__images mt-4">
+            <div class="list-unstlyed mb-0 d-flex justify-content-start justify-content-md-end">
+                <div *ngFor="let image of imageDataChange(data.get_post_images, data.get_business!=undefined?data.get_business.get_business_files:[]); let i = index;"
+                    class="image_more_show">
+                    <div class="posted__images--more" *ngIf="i < '3'"
+                        (click)="openVerticallyCentered(resend_link, data.get_post_images, data.get_business != undefined?data.get_business.get_business_files:[])">
+                        <img src="{{image}}" alt="" class="rounded-lg" width="72" height="56">
+                        <div class="more"
+                            *ngIf="imageDataChange(data.get_post_images, data.get_business != undefined?data.get_business.get_business_files:[]).length > '2' && i == '2' ">
+                            {{language.more}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./ User Post -->
+
+
+<!-- Modal -->
+<ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+    <button type="button" class="close slider-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <app-common-slider [images]="sliderImg"></app-common-slider>
+</ng-template>
+<!-- ./ Model -->
+
+
+
+<!-- Modal -->
+<ng-template #deleteModel let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-body py-5 text-center">
+        <h5>{{language.are_you_sure_you_want_to_delete }} <span class="busines_name_color"
+                *ngIf="postData">{{postData.get_business.business_name}}</span> ?
+        </h5>
+    </div>
+    <div class="modal-footer">
+        <div class="posted__date d-flex justify-content-center w-100">
+            <button class="btn text-white rounded-pill btn-edit mr-1"
+                (click)="modal.dismiss('Cross click')">{{language.no}}</button>
+            <button class="btn text-white rounded-pill btn-delete ml-1" (click)="deletePost()">
+                {{language.yes}}</button>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<!-- ./ Modal -->

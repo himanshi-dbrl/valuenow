@@ -1,0 +1,62 @@
+<!-- Sidebar Navigation -->
+<div class="sidebar__nav">
+    <div class="sidebar__close"><i class="fas fa-times"></i></div>
+    <div class="user_panel">
+        <app-profile-picture [myDropdownClass]="myDropdown"></app-profile-picture>
+    </div>
+    <ul class="nav flex-column flex-nowrap" id="sidebar_main_menu">
+        <app-menu-list></app-menu-list>
+    </ul>
+
+    <div class="nav-gap"></div>
+
+    <app-top-header-menu-sidebar></app-top-header-menu-sidebar>
+
+</div>
+
+<div class="body-shadow"></div>
+<!-- End Sidebar Navigation -->
+
+<!-- Top Header -->
+<div class="top-header">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-9">
+                <div class="d-flex align-items-center">
+                    <!-- Change Language -->
+                    <div class="change_language mx-4 px-0 px-md-3 py-2 py-md-3">
+                        <div class="welcome_select w-auto ml-0  bg-transparent">
+                            <span onclick="myFunctionLanguage()"
+                                class="dropbtn text-white">{{currentlan=='en'?language.english:language.arabic}}
+                            </span>
+                            <div id="myDropdownLanguage" class="dropdown-content select_list  list-unstyled">
+                                <li *ngIf="currentlan == 'ar'" (click)="changeLanguage('en')">{{language.english}}</li>
+                                <li *ngIf="currentlan == 'en'" (click)="changeLanguage('ar')">
+                                    {{language.arabic}}</li>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ./ Change Language -->
+
+                    <form id="top_search_form">
+                        <div class="top-bar-search">
+                            <input type="text" value="" name="s" id="s" placeholder="{{language.search}} ">
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="col-md-3 pl-0 d-none d-md-block">
+                <!-- Top Email -->
+                <div class="top_email d-flex align-items-center float-left float-md-right  pr-0 pr-md-4">
+                    <a href="#"><i class="far fa-envelope-open"></i> <span
+                            class="text-white">info@valuenow.net</span></a>
+                </div>
+                <!-- ./ Top Email -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./ Top Header -->

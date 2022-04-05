@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="posted_img">
+            <div class="media">
+                <div class="mr-3 rounded-circle rounded-circle-div">
+                    <img ng-if="data.get_post_user" src="{{profileUrl(data.get_post_user.image, data.get_post_user.gender)}}" alt="..."
+                        class="round-img">
+                </div>
+                <div class="media-body">
+                    <div class="posted__user-details">
+                        <p class="fz16 font-italic" *ngIf="data.get_post_user !=
+                            undefined">{{language.posted_by}}
+                            {{data.get_post_user.first_name | titlecase }}
+                            {{data.get_post_user.last_name | titlecase}}</p>
+                        <ul>
+                            <li><img src="assets/images/eye.png" /><span>{{data.view_count}}</span>
+                            </li>
+                            <li><img src="assets/images/bookmark.png" />
+                                <span>{{data.total_bookmarked_count}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="posted__date posted__date--remove text-left text-md-right"
+            [ngClass]="{'posted__date--remove':data.is_bookmarked == 1}">
+            <p class="mb-0 fz16 posted__text_color">{{data.created_at | date:'MMM dd,yyyy'}}</p>
+            <button class="btn rounded-0"
+                (click)="bookmark(data, index)">{{data.is_bookmarked==1?language.remove_bookmark:language.add_bookmark}}</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="posted__sort--details">
+            <a (click)="details(data)" class="cursor_pointer">
+                <h4 class="fz20">
+                    {{data.get_workplace !=undefined?(data.get_workplace.business_name.length>50)? (data.get_workplace.business_name| titlecase | slice:0:50)+'...':(data.get_workplace.business_name| titlecase) :(data.get_business.business_name.length>50)? (data.get_business.business_name| titlecase | slice:0:50)+'...':(data.get_business.business_name| titlecase)}}
+                    <!-- {{(data.get_business.business_name.length>50)? (data.get_business.business_name| titlecase | slice:0:50)+'...':(data.get_business.business_name| titlecase)}} -->
+                </h4>
+            </a>
+            <p class="mb-0 fz16 posted__text_color">
+                {{
+                (data.description== null?"":data.description.length>150)? (data.description | slice:0:150)+'...':(data.description)}}
+            </p>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="posted__images mt-4">
+            <div class="list-unstlyed mb-0 d-flex justify-content-start justify-content-md-end">
+                <div *ngFor="let image of imageDataChange(data.get_post_images, data.get_business!=undefined?data.get_business.get_business_files:[]); let i = index;"
+                    class="image_more_show">
+                    <div class="posted__images--more" *ngIf="i < '3'"
+                        (click)="openVerticallyCentered(resend_link, data.get_post_images, data.get_business != undefined?data.get_business.get_business_files:[])">
+                        <img src="{{image}}" alt="" class="rounded-lg" width="72" height="56">
+                        <div class="more"
+                            *ngIf="imageDataChange(data.get_post_images, data.get_business != undefined?data.get_business.get_business_files:data.get_workplace != undefined?data.get_workplace.get_files:[]).length > '2' && i == '2' ">
+                            {{language.more}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+    <button type="button" class="close slider-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <app-common-slider [images]="sliderImg"></app-common-slider>
+</ng-template>
+<!-- ./ Model -->

@@ -1,0 +1,489 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left Side Bar -->
+      <div class="left-side">
+        <app-sidebar></app-sidebar>
+      </div>
+      <!-- ./ Left Side Bar -->
+      <!-- All Content Right Sidebar -->
+      <div class="right-side">
+        <div class="container-fluid">
+          <!-- Content Main Heading -->
+          <app-inner-header [headerData]="headerData"></app-inner-header>
+          <!-- ./ Content Main Heading -->
+          <div class="myBusiness">
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="myBusiness_card mb-3">
+                  <div class="card">
+                    <div class="card-header fz20">
+                      {{language.post_opportunity_details}}
+                    </div>
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-11">
+
+                            <form class="login_signin_form myBusiness_form" [formGroup]="opportunityForm">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label
+                                      class="fz16 ">{{userType==1?language.select_business: language.select_investor_workplace}}</label>
+                                    <ngx-select-dropdown [config]="BusinessNameConfig" [options]="listData"
+                                      formControlName="business" [multiple]="false"
+                                      (change)="selectBussiness($event.value)"
+                                      [ngClass]="{'is-invalid':f.business.errors && submitted}">
+                                    </ngx-select-dropdown>
+                                    <div *ngIf="submitted && f.business.errors" class="invalid-feedback">
+                                      <div *ngIf="f.business.errors.required">{{language.select_any_one_business}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.choose_field_of_opportunity}} </label>
+                                    <ngx-select-dropdown [config]="fieldconfig" [options]="fieldData"
+                                      formControlName="field" (change)="getSubfield($event.value)" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.field.errors && submitted}">
+                                    </ngx-select-dropdown>
+                                    <div *ngIf="submitted && f.field.errors" class="invalid-feedback">
+                                      {{language.select_any_one_field}} </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.choose_sub_field}} </label>
+                                    <ngx-select-dropdown [config]="fbconfig" [options]="subFieldData"
+                                      formControlName="subField" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.subField.errors && submitted}">
+                                    </ngx-select-dropdown>
+                                  </div>
+                                </div>
+                                <!-- <div class="col-md-6" *ngIf="userType ==2">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.i_would_like_to_invest}} </label>
+                                    <ngx-select-dropdown [config]="config" [options]="investingAsList"
+                                      formControlName="investAs_id" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.investAs_id.errors && submitted}">
+                                    </ngx-select-dropdown>
+
+                                    <div *ngIf="submitted && f.investAs_id.errors" class="invalid-feedback">
+                                      <div *ngIf="submitted && f.investAs_id.errors.required">
+                                        {{language.select_any_one_i_would_like_to_invest_as}} </div>
+                                    </div>
+                                  </div>
+                                </div> -->
+
+                                <!-- <div class="col-md-6" *ngIf="userType ==1">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.business_type}} </label>
+                                    <ngx-select-dropdown [config]="fconfig" [options]="businessType"
+                                      formControlName="businessType" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.businessType.errors && submitted}">
+                                    </ngx-select-dropdown>
+
+                                    <div *ngIf="submitted && f.businessType.errors" class="invalid-feedback">
+                                      <div *ngIf="submitted && f.businessType.errors.required">
+                                        {{language.select_any_one_business_type}} </div>
+                                    </div>
+                                  </div>
+                                </div> -->
+
+
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.business_type}} </label>
+                                    <ngx-select-dropdown [config]="fconfig" [options]="businessType"
+                                      formControlName="businessType" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.businessType.errors && submitted}">
+                                    </ngx-select-dropdown>
+
+                                    <div *ngIf="submitted && f.businessType.errors" class="invalid-feedback">
+                                      <div *ngIf="submitted && f.businessType.errors.required">
+                                        {{language.select_any_one_business_type}} </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.choose_country}} </label>
+                                    <ngx-select-dropdown [config]="countryConfig" [options]="country"
+                                      formControlName="country" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.country.errors && submitted}">
+                                    </ngx-select-dropdown>
+                                    <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                      <div *ngIf="submitted && f.country.errors.required">
+                                        {{language.choose_any_one_country}} </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{language.range_of_investment}} </label>
+                                    <ngx-select-dropdown [config]="config" [options]="rangeOfInvestment"
+                                      formControlName="rangeOfInvestment" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.rangeOfInvestment.errors && submitted}">
+                                    </ngx-select-dropdown>
+                                    <div *ngIf="submitted && f.rangeOfInvestment.errors" class="invalid-feedback">
+                                      <div *ngIf="submitted && f.rangeOfInvestment.errors.required">
+                                        {{language.select_any_one_range_of_investment}} </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="col-md-12">
+
+                                  <div class="check_box--part">
+
+                                    <div class="row">
+                                      <div class="col-lg-4">
+                                        <p class="fz16 font_weight_600">{{language.what_are_you_looking_for}} </p>
+                                      </div>
+                                      <div class="col-lg-8">
+                                        <div class="d-flex padding-top">
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="businessValuated1" 
+                                              value="1" formControlName="lookingFor" name="lookingFor" checked>
+                                            <label class="form-check-label font_weight_400" for="businessValuated1">
+                                              {{language.selling_out_your_business}}
+                                            </label>
+                                          </div>
+                                          <div class="form-check"> 
+                                            <input class="form-check-input" type="radio" id="businessValuated2"
+                                              value="2" formControlName="lookingFor" name="lookingFor">
+                                            <label class="form-check-label font_weight_500" for="businessValuated2">
+                                              {{language.looking_for_a_partner}}
+                                            </label>
+                                          </div>
+                                        </div>
+                                        <br>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-lg-8">
+                                        <div *ngIf="submitted && f.lookingFor.errors">
+                                          <div *ngIf="submitted && f.lookingFor.errors.required" class="custom_errors">
+                                            {{language.any_one_which_you_are_looking_for}} </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="row" *ngIf="userType ==1">
+                                      <div class="col-lg-4">
+                                        <p class="fz16 font_weight_600">{{language.business_valuated}}</p>
+                                      </div>
+                                      <div class="col-lg-8">
+                                        <div class="d-flex padding-top">
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="businessValuatedYes"
+                                              value="1" formControlName="businessValuated"
+                                              (click)="checkBusinessValuated(1)">
+                                            <label class="form-check-label" id="Yes" for="businessValuatedYes">
+                                              {{language.yes}}
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="businessValuatedNo"
+                                              value="0" formControlName="businessValuated"
+                                              (click)="checkBusinessValuated(0)">
+                                            <label class="form-check-label" id="No" for="businessValuatedNo">
+                                              {{language.no}}
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <br />
+                                    <div class="row" *ngIf="userType ==1">
+                                      <div class="col-lg-8">
+                                        <div *ngIf="submitted && f.businessValuated.errors">
+                                          <div *ngIf="submitted && f.businessValuated.errors.required"
+                                            class="custom_errors">{{language.select_any_one_for_business_valuated}}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- Condision wise show -->
+                                    <!-- ONE -->
+                                    <div class="box1" *ngIf="is_valuated == 1">
+
+                                      <div class="row">
+                                        <div class="col-lg-4">
+                                          <p class="fz16 font_weight_600">{{language.my_business_idea_worth}} </p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                          <input type="text" class="form-control" id="worthofValue"
+                                            formControlName="worthofValue">
+                                        </div>
+                                        <div class="col-lg-5">
+                                          <div *ngIf="worth == 'yes' && submitted && f.worthofValue.errors">
+                                            <div
+                                              *ngIf="(submitted && f.worthofValue.errors.required) || (submitted && f.worthofValue.errors.cannotContainSpace)"
+                                              class="custom_errors">{{language.worth_value_is_required}} </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <br />
+                                    </div>
+                                    <!-- ONE -->
+                                    <!-- Two -->
+                                    <div class="box1" *ngIf="is_valuated ==0">
+
+                                      <div class="row">
+                                        <div class="col-lg-4">
+                                          <p class="fz16 font_weight_600">{{language.get_valuated_from_valuenow}} </p>
+                                        </div>
+                                        <div class="col-lg-8">
+                                          <div class="d-flex padding-top">
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="radio" id="yes1" value="1"
+                                                formControlName="valuatedFrom">
+                                              <label class="form-check-label " for="yes1"> {{language.yes}}
+                                              </label>
+                                            </div>
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="radio" id="no1" value="0"
+                                                formControlName="valuatedFrom">
+                                              <label class="form-check-label" for="no1">
+                                                {{language.no}}
+                                              </label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <br />
+                                      <div class="row">
+                                        <div class="col-lg-8">
+                                          <div *ngIf="worth == 'no' && submitted && f.valuatedFrom.errors">
+                                            <div *ngIf="submitted && f.valuatedFrom.errors.required"
+                                              class="custom_errors">{{language.get_valuated_is_required}} </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- Two -->
+                                    <!-- ./ Condision wise show -->
+                                    <div class="row valuatedBy" *ngIf="is_valuated ==1">
+                                      <div class="col-lg-4">
+                                        <p class="fz16 font_weight_600">{{language.valuated_by}} </p>
+                                      </div>
+                                      <div class="col-lg-8">
+                                        <div class="d-flex padding-top">
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="valueNow" value="1"
+                                              checked="" formControlName="valuatedBy">
+                                            <label class="form-check-label " for="valueNow">
+                                              {{language.app_name}}
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="self" value="2"
+                                              formControlName="valuatedBy">
+                                            <label class="form-check-label " for="self">
+                                              {{language.Self}}
+                                            </label>
+                                          </div>
+                                          <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="others" value="3"
+                                              formControlName="valuatedBy">
+                                            <label class="form-check-label " for="others">
+                                              {{language.other}}
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div><br />
+                                    <div class="row">
+                                      <div class="col-lg-12">
+                                        <div *ngIf="submitted && f.valuatedBy.errors">
+                                          <div *ngIf="submitted && f.valuatedBy.errors.required" class="custom_errors">
+                                            {{language.from_which_you_want_to_valuated}} </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="check_box--part">
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="form-group">
+                                            <label for="businessInformation"
+                                              class="fz16 ">{{language.describe_your_opportunity}} </label>
+                                            <textarea class="form-control" id="businessInformation" rows="5"
+                                              (input)="whiteSpaceValidation()"
+                                              placeholder="{{language.your_opportunity}}"
+                                              formControlName="description"></textarea>
+                                            <div *ngIf="submitted && f.description.errors">
+                                              <div
+                                                *ngIf="(submitted && f.description.errors.required) || (submitted && f.description.errors.cannotContainSpace)"
+                                                class="custom_errors">
+                                                {{language.description_of_opportunity_is_required}}</div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="check_box--part">
+                                      <div class="row">
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label class="fz16 ">{{language.upload_supporting_documents}} </label>
+                                            <div class="file_upload">
+                                              <input type="file" id="upload_img" class="d-none" multiple
+                                                (change)="postDoc($event.target.files)"
+                                                accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
+                                              <label for="upload_img" class="upload_btn"><i
+                                                  class="fas fa-plus"></i></label>
+                                              <div class="upload_file  mt-3 text-center">
+                                                <div class="form-row">
+                                                  <div class="col-sm-6"
+                                                    *ngFor='let docurl of businessFileUrls; let i = index;'>
+                                                    <div class="uploaded_file border" *ngIf="docurl.file_type == 'doc'">
+                                                      <img src="assets/images/upload_placeholder.png" id="Profile4"
+                                                        class="mr-3" alt="..." width="28" height="35">
+                                                      <span
+                                                        class="mt-0 file_name d-block">{{commonService.getFileName(docurl.url)}}</span>
+                                                      <!-- <span class="upload_delect_btn"
+                                                        (click)="removeImagePost(docurl.id, i)"><i
+                                                          class="fas fa-times"></i></span> -->
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-sm-6"
+                                                    *ngFor='let docurl of editFileUrls; let i = index;'>
+                                                    <div class="uploaded_file border" *ngIf="docurl.file_type == 'doc'">
+                                                      <img src="assets/images/upload_placeholder.png" id="Profile4"
+                                                        class="mr-3" alt="..." width="28" height="35">
+                                                      <span
+                                                        class="mt-0 file_name d-block">{{commonService.getFileName(docurl.url)}}</span>
+                                                      <span class="upload_delect_btn"
+                                                        (click)="removeImagePost(docurl.id, i)"><i
+                                                          class="fas fa-times"></i></span>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-sm-6" *ngFor='let docurl of docurls; let i = index'>
+                                                    <div class="uploaded_file border">
+                                                      <img src="assets/images/upload_placeholder.png" id="Profile4"
+                                                        class="mr-3" alt="..." width="28" height="35">
+                                                      <span class="mt-0 file_name d-block">{{docurl.name}}</span>
+                                                      <span class="upload_delect_btn" (click)="removeDoc(i)"><i
+                                                          class="fas fa-times"></i></span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div *ngIf="worth == 'yes' && submitted && f.document.errors">
+                                            <div *ngIf="submitted && f.document.errors.required" class="custom_errors">
+                                              {{language.document_of_post_is_required}} </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <div class="form-group">
+                                            <label for="email" class="fz16 ">{{language.upload_photos_videos}} </label>
+                                            <div class="file_upload">
+                                              <input type="file" id="upload_img2" class="d-none"
+                                                accept="image/*, video/*" (change)="postPicture($event.target.files)"
+                                                multiple>
+                                              <label for="upload_img2" class="upload_btn"><i
+                                                  class="fas fa-plus"></i></label>
+                                              <div class="upload_file mt-3 text-center">
+                                                <div class="form-row">
+                                                  <div class="col-sm-6"
+                                                    *ngFor='let url of businessFileUrls; let i = index'>
+                                                    <div class="uploaded_file border"
+                                                      *ngIf="url.file_type == 'pic' || url.file_type==='video'">
+                                                      <img [src]="commonService.siteUrl()+url.url" id="Profile4"
+                                                        class="mr-3" alt="..." width="28" height="35"
+                                                        *ngIf="url.file_type==='pic'">
+
+                                                      <video [src]="commonService.siteUrl()+url.url"
+                                                        *ngIf="url.file_type==='video' && url" id="Profile4"
+                                                        class="mr-3" alt="..." width="100" height="150"
+                                                        controls></video>
+                                                      <span
+                                                        class="mt-0 file_name d-block">{{commonService.getFileName(url.url)}}</span>
+                                                      <!-- <span class="upload_delect_btn"
+                                                        (click)="removeImagePost(url.id, i)"><i
+                                                          class="fas fa-times"></i></span> -->
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-sm-6" *ngFor='let url of editFileUrls; let i = index'>
+                                                    <div class="uploaded_file border"
+                                                      *ngIf="url.file_type == 'pic' || url.file_type==='video'">
+                                                      <img [src]="commonService.siteUrl()+url.url" id="Profile4"
+                                                        class="mr-3" alt="..." width="28" height="35"
+                                                        *ngIf="url.file_type==='pic'">
+
+                                                      <video [src]="commonService.siteUrl()+url.url"
+                                                        *ngIf="url.file_type==='video' && url" id="Profile4"
+                                                        class="mr-3" alt="..." width="100" height="150"
+                                                        controls></video>
+                                                      <span
+                                                        class="mt-0 file_name d-block">{{commonService.getFileName(url.url)}}</span>
+                                                      <span class="upload_delect_btn"
+                                                        (click)="removeImagePost(url.id, i)"><i
+                                                          class="fas fa-times"></i></span>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-sm-6" *ngFor='let url of urls; let i = index;'>
+                                                    <div class="uploaded_file border">
+                                                      <img [src]="url.url" id="Profile4" class="mr-3" alt="..."
+                                                        width="28" height="35" *ngIf="url.format==='image'">
+
+                                                      <video [src]="url.url" *ngIf="url.format==='video' && url"
+                                                        id="Profile4" class="mr-3" alt="..." width="100" height="150"
+                                                        controls></video>
+                                                      <span class="mt-0 file_name d-block">{{url.name}}</span>
+                                                      <span class="upload_delect_btn" (click)="removeImage(i)"><i
+                                                          class="fas fa-times"></i></span>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div *ngIf="worth == 'yes' && submitted && f.image.errors">
+                                            <div *ngIf="submitted && f.image.errors.required" class="custom_errors">
+                                              {{language.image_of_post_is_required}} </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="text-center login_signup_email  ">
+                                      <button type="submit" class="btn radius-30 mb-5"
+                                        (click)="add()">{{language.submit}} </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+      <!-- ./ All Content Right Sidebar -->
+    </div>
+  </div>
+  <app-inner-footer></app-inner-footer>
+  <!-- <app--footer></app-footer> -->
+
+  <!-- main wrapper -->

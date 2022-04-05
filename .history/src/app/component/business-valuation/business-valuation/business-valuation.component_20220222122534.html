@@ -1,0 +1,293 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <div class="businessValuation">
+                        <!-- Slider -->
+                        <div class="row mb-4">
+                            <div class="col-lg-12">
+                                <div class="slider">
+                                    <div class="businessSlider">
+                                        <div>
+                                            <img src="assets/images/slider/slider1.jpg" class="img-fluid">
+                                        </div>
+                                        <!-- <div>
+                                            <img src="assets/images/slider/slider6.jpg" class="img-fluid">
+                                        </div> -->
+                                        <div>
+                                            <img src="assets/images/slider/slider2.jpg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <img src="assets/images/slider/slider3.jpg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <img src="assets/images/slider/slider4.jpg" class="img-fluid">
+                                        </div>
+                                        <div>
+                                            <img src="assets/images/slider/slider5.jpg" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="prevSlider"><i class="fa fa-caret-left" aria-hidden="true"></i></div>
+                                    <div class="nextSlider"><i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ./ Slider -->
+                        <!-- Why Valuate with ValueNow -->
+                        <div class="row mb-4">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <!-- title -->
+                                    <div class="card-header fz20">
+                                        {{language.why_valuate_with_valuenow}}
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- Valuate List -->
+                                                <div class="valuate_list py-3">
+                                                    <ul>
+                                                        <li>
+                                                            <p>{{language.tailored_for_startups}}</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>{{language.more_then_just_a_estimate}}</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>{{language.one_of_the_first_provider_of_startup}}</p>
+                                                        </li>
+                                                        <li>
+                                                            <p>{{language.lear_and_detailed_valuation}}</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Valuate List -->
+                                            </div>
+                                        </div>
+                                        <!-- <div class="valuete_testmorial">
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6 item">
+                                                    <div class="textmorials">
+                                                        <div class="media">
+                                                            <img class="align-self-center mr-3"
+                                                                src="assets/images/post_user/user1.png"
+                                                                alt="Generic placeholder image">
+                                                            <div class="media-body">
+                                                                <h5 class="mt-2 pt-1 fz15 font_weight_600">
+                                                                    
+                                                                    Kathleen Robinson
+                                                                    <span
+                                                                        class="fz15 font_weight_400 d-block">Director</span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        <p class="fz15 font_weight_500 mt-3">It is a long established
+                                                            fact that a reader will be distracted by the readable
+                                                            content of a page when looking</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 item">
+                                                    <div class="textmorials">
+                                                        <div class="media">
+                                                            <img class="align-self-center mr-3"
+                                                                src="assets/images/post_user/user2.png"
+                                                                alt="Generic placeholder image">
+                                                            <div class="media-body">
+                                                                <h5 class="mt-2 pt-1 fz15 font_weight_600">
+                                                                    Kathleen Robinson
+                                                                    <span
+                                                                        class="fz15 font_weight_400 d-block">Director</span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                        <p class="fz15 font_weight_500 mt-3">It is a long established
+                                                            fact that a reader will be distracted by the readable
+                                                            content of a page when looking</p>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ Why Valuate with ValueNow -->
+
+                    <!-- Valuate Pricing -->
+                    <div class="row mb-4">
+                        <div class="col-lg-12">
+                            <div class="card" *ngIf="userData.type==1">
+                                <h5 class="card-header">{{language.try_our_most_sought}}</h5>
+                                <div class="container mt-5">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="price_heading mb-3">
+                                                <h3 class="fz20 font_weight_600 text-center mt-4 mb-0 border-0">
+                                                    {{language.select_business}}:</h3>
+                                                <form [formGroup]="valuationForm">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-sm-4">
+                                                            <div class="login_signin_form">
+                                                                <ngx-select-dropdown [config]="BusinessNameConfig"
+                                                                    [options]="business" [multiple]="false"
+                                                                    (change)="selectBusiness($event)"
+                                                                    formControlName="business_name">
+                                                                </ngx-select-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <h3 class="fz20 font_weight_600 text-center mt-5 border-0 mb-0">
+                                                    {{language.select_a_package}}
+                                                    :</h3>
+                                            </div>
+                                            <div class="pricing_main mb-5">
+                                                <div class="d-flex justify-content-center pricing_color">
+                                                    <!-- Plan Type -->
+                                                    <div class="col plan-main">
+                                                        <div class="plan-head">
+                                                            <div class="plan-blank">&nbsp;</div>
+                                                            <div class="plan-heading">{{language.choose_your_plan}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="plan-type">
+                                                            <div class="plan-cell">
+                                                                <p> {{language.full_valuation}}</p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p> {{language.results_guaranteed}}</p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p>{{language.number_of_updates}}</p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p>{{language.arabic_version}}</p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p> {{language.duration}} </p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p><br></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Plan Type -->
+                                                    <!-- plan Section One -->
+
+                                                    <div *ngFor="let data of businessValuatedPlan; let i = index;"
+                                                        class="col plan sec-one">
+                                                        <div class="plan-head">
+                                                            <div class="plan-blank">{{data.name}}</div>
+                                                            <div class="plan-heading">
+                                                                ${{data.amount}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="plan-type">
+                                                            <div class="plan-cell">
+                                                                <p>
+                                                                    <i *ngIf="data.full_valuation_report_eng==1"
+                                                                        class="fa fa-check text-success"
+                                                                        aria-hidden="true"></i>
+                                                                    <i *ngIf="data.full_valuation_report_eng==0"
+                                                                        class="fa fa-times text-danger"
+                                                                        aria-hidden="true"></i>
+                                                                </p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p>
+                                                                    <i *ngIf="data.result_guaranted_day==1"
+                                                                        class="fa fa-check text-success"
+                                                                        aria-hidden="true"></i>
+                                                                    <i *ngIf="data.result_guaranted_day==0"
+                                                                        class="fa fa-times text-danger"
+                                                                        aria-hidden="true"></i>
+                                                                </p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p>{{data.number_of_update}}</p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input type="checkbox" class="custom-control-input"
+                                                                        id="customCheck{{i}}" name="package{{id}}"
+                                                                        (change)="additionalChargeAdd($event.target.checked, data.arabic_version, i)">
+                                                                    <label class="custom-control-label"
+                                                                        for="customCheck{{i}}">{{language.add}}
+                                                                        ${{data.arabic_version}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <p>{{data.duration}} {{language.month}}</p>
+                                                            </div>
+                                                            <div class="plan-cell">
+                                                                <button class="btn rounded-pill cell-buy-now"
+                                                                    (click)="data.isUse != undefined && i < data.isUse?downgrade():data.isUse != undefined && i == data.isUse?'':data.isUse != undefined && i >= data.isUse?upgradePackage(upgradePackageTmp,data):purchagePackage(data)">{{data.isPackage != undefined && data.isPackage == true?language.activated:language.buy_now}}</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End plan Section One -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-5">
+                                <app-entrepreneur-package *ngIf="userData.type==1"></app-entrepreneur-package>
+                            </div>
+                            <div class="card mt-5">
+                                <app-investor-package *ngIf="userData.type == 2"></app-investor-package>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ Valuate Pricing -->
+                </div>
+                <!-- Business Valuation -->
+
+                <ng-template #upgradePackageTmp let-modal class="modal-dialog modal-dialog-centered">
+
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title" id="resend_link"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body px-5">
+                        <div class="resend_link">
+                            <p>{{language.are_you_sure_for_upgrade_your_account}}</p>
+                            <div class="text-center login_signup_email  ">
+                                <a class="btn rounded-pill mt-3"
+                                    (click)="purchagePackage(upgradePckgData)">{{language.continue}}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </div>
+        </div>
+        <!-- ./ All Content Right Sidebar -->
+    </div>
+</div>
+<app-inner-footer></app-inner-footer>
+<!-- <app--footer></app-footer> -->
+
+
+<!-- main wrapper -->

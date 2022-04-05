@@ -1,0 +1,7 @@
+<ul  class="list-inline p-0 m-0 mx-auto">
+    <li class="list-inline-item m-2" *ngFor="let datas of data;">
+        <a href="" (click)="onNavigate(datas.link)" target=" _blank">
+            <img [src]=" commanService.siteUrl()+ datas.image" alt="{{data.title}}" width="250px" class="img-fluid"/>
+        </a>
+    </li>
+</ul>

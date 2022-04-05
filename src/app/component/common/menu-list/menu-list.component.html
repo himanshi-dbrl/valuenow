@@ -1,0 +1,40 @@
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active"> <i class="v_icon i_home"></i>
+    {{language.my_home}}</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">
+    <i class="v_icon i_dashboard"></i> {{language.my_dashboard}}</a>
+</li>
+<li class="nav-item" *ngIf="userData.type==1">
+  <a class="nav-link" [routerLink]="['/business/list']" routerLinkActive="active">
+    <i class="v_icon i_business"></i>
+    {{language.my_business}}</a>
+</li>
+<li class="nav-item" *ngIf="userData.type==2">
+  <a class="nav-link" [routerLink]="['/workplace/list']" routerLinkActive="active">
+    <i class="v_icon i_business"></i>
+    {{language.investor_work_place}}</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/search-opportunity']" routerLinkActive="active"><i class="v_icon i_search"></i>
+    {{language.search_opportunity}} </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/opportunity/add']" routerLinkActive="active"><i class="v_icon i_post"></i>
+    {{language.post_opportunity}} </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/business-valuation']" routerLinkActive="active"><i
+      class="v_icon i_valuation"></i>{{ userData.type==1?language.business_valuation:language.investor_package}}
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" [routerLink]="['/order-invoice']" routerLinkActive="active"><i class="v_icon i_invoices"></i>
+    {{language.my_order_invoices}}</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link"
+    href="{{language.typeOf=='1'?'https://valuenow.net/contact/':'https://valuenow.net/ar/contact/'}}"><i
+      class="v_icon i_contact"></i>{{language.contact_us}}</a>
+</li>

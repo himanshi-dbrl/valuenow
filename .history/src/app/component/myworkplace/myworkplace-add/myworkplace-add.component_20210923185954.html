@@ -1,0 +1,460 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <div class="myBusiness">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="myBusiness_card mb-3">
+                                    <div class="card">
+                                        <div class="card-header fz20">
+                                            {{language.add_investor_workplace}}
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-lg-11">
+
+                                                        <form class="login_signin_form myBusiness_form"
+                                                            [formGroup]="myWorkPlackForm">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="businessName"
+                                                                            class="fz16 ">{{language.investment_name}}</label>
+                                                                        <input type="text" class="form-control mb-4"
+                                                                            id="businessName" formControlName="name"
+                                                                            placeholder="{{language.investment_name}}"
+                                                                            [ngClass]="{'is-invalid': submitted && f.name.errors}">
+                                                                        <div *ngIf="submitted && f.name.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="(f.name.errors.required) || (f.name.errors.cannotContainSpace)">
+                                                                                {{language.investment_name}}
+                                                                                {{language.is_required}}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="businessField"
+                                                                            class="fz16 ">{{language.business_field}}
+                                                                        </label>
+                                                                        <ngx-select-dropdown [config]="fieldconfig"
+                                                                            [options]="fieldData"
+                                                                            formControlName="field"
+                                                                            (change)="getSubfield($event.value)"
+                                                                            [multiple]="false"
+                                                                            [ngClass]="{'is-invalid':f.field.errors && submitted}">
+                                                                        </ngx-select-dropdown>
+                                                                        <div *ngIf="submitted && f.field.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="submitted && f.field.errors.required">
+                                                                                {{language.select_any_one_field}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="businessSub-field"
+                                                                            class="fz16 ">{{language.business_sub_field}}
+                                                                        </label>
+                                                                        <ngx-select-dropdown [config]="fconfig"
+                                                                            [options]="subField"
+                                                                            formControlName="sub_field"
+                                                                            [multiple]="false"
+                                                                            [ngClass]="{'is-invalid':f.sub_field.errors && submitted}">
+                                                                        </ngx-select-dropdown>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="businessType"
+                                                                            class="fz16 ">{{language.business_type}}</label>
+                                                                        <ngx-select-dropdown [config]="fbconfig"
+                                                                            [options]="businessType"
+                                                                            formControlName="business_type"
+                                                                            [multiple]="false"
+                                                                            [ngClass]="{'is-invalid':f.business_type.errors && submitted}">
+                                                                        </ngx-select-dropdown>
+                                                                        <div *ngIf="submitted && f.business_type.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="submitted && f.business_type.errors.required">
+                                                                                {{language.select_any_one_business_type}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="country"
+                                                                            class="fz16 ">{{language.country}}</label>
+                                                                        <ngx-select-dropdown [config]="configCountry"
+                                                                            [options]="country"
+                                                                            formControlName="country" [multiple]="false"
+                                                                            [ngClass]="{'is-invalid':f.country.errors && submitted}">
+                                                                        </ngx-select-dropdown>
+                                                                        <div *ngIf="submitted && f.country.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="submitted && f.country.errors.required">
+                                                                                {{language.choose_any_one_country}}
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="state"
+                                                                            class="fz16 ">{{language.state_region}}</label>
+                                                                        <input type="text" class="form-control mb-4"
+                                                                            id="businessSub-field"
+                                                                            formControlName="state"
+                                                                            placeholder="{{language.enter_state_region}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="city"
+                                                                            class="fz16 ">{{language.city}}</label>
+                                                                        <input type="text" class="form-control mb-4"
+                                                                            id="city" placeholder="{{language.city}}"
+                                                                            formControlName="city"
+                                                                            [ngClass]="{'is-invalid': submitted && f.city.errors}">
+                                                                        <div *ngIf="submitted && f.city.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="(f.city.errors.required)|| (f.city.errors.cannotContainSpace)">
+                                                                                {{language.city}}
+                                                                                {{language.is_required}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="address"
+                                                                            class="fz16 ">{{language.address}}</label>
+                                                                        <input type="text" class="form-control mb-4"
+                                                                            id="address"
+                                                                            placeholder="{{language.enter_address}}"
+                                                                            formControlName="address"
+                                                                            [ngClass]="{'is-invalid': submitted && f.address.errors}">
+                                                                        <div *ngIf="submitted && f.address.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="(f.address.errors.required)|| (f.city.errors.cannotContainSpace)">
+                                                                                {{language.address}}
+                                                                                {{language.is_required}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label
+                                                                            for="mobileNo">{{language.mobile_no}}</label>
+                                                                        <div
+                                                                            class="mobleNo_select form-control d-flex align-items-center">
+                                                                            <ngx-select-dropdown
+                                                                                [config]="configCountryCode"
+                                                                                [options]="dataCountryCode"
+                                                                                formControlName="country_code"
+                                                                                [multiple]="false" class="countryCode"
+                                                                                [ngClass]="{'is-invalid':f.country_code.errors && submitted}">
+                                                                            </ngx-select-dropdown>
+                                                                            <input type="text" id="mobileNo"
+                                                                                class="mobileNo"
+                                                                                placeholder="{{language.mobile_no}}"
+                                                                                formControlName="mobile_number"
+                                                                                [ngClass]="{'is-invalid': submitted && f.mobile_number.errors}">
+
+                                                                        </div>
+                                                                        <small class="font_weight_600"><strong>{{language.note}}
+                                                                            </strong>{{language.do_not_add}} </small>
+                                                                        <div *ngIf="submitted && f.country_code.errors"
+                                                                            class="custom_errors">
+                                                                            <div
+                                                                                *ngIf=" (submitted && f.country_code.errors.required)">
+                                                                                {{language.country_code}}
+                                                                                {{language.is_required}}!
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div *ngIf="(submitted && f.mobile_number.errors)"
+                                                                            class="custom_errors">
+                                                                            <div
+                                                                                *ngIf="(submitted && f.mobile_number.errors.required)">
+                                                                                {{language.mobile_no}}
+                                                                                {{language.is_required}}!
+                                                                            </div>
+
+                                                                            <div
+                                                                                *ngIf="submitted && f.mobile_number.errors.pattern">
+                                                                                {{language.phone_number_must_be_digit}}
+                                                                            </div>
+                                                                        </div>
+
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label
+                                                                            for="datebirth">{{language.year_of_investment}}
+                                                                        </label>
+                                                                        <input type="text" class="form-control"
+                                                                            placement="bottom" id="datebirth"
+                                                                            placeholder="YYYY"
+                                                                            formControlName="year_of_investment"
+                                                                            [ngClass]="{'is-invalid':f.year_of_investment.errors && submitted}">
+                                                                        <div *ngIf="submitted && f.year_of_investment.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="submitted && f.year_of_investment.errors.required ">
+                                                                                {{language.year_of_investment}}
+                                                                                {{language.is_required}}
+                                                                            </div>
+                                                                            <div
+                                                                                *ngIf="submitted && f.year_of_investment.pattern">
+                                                                                {{language.year_of_investment}}
+                                                                                {{language.must_be_numeric}}!
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="col-md-12">
+
+                                                                    <div class="check_box--part">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="businessInformation"
+                                                                                        class="fz16 ">{{language.overview}}</label>
+                                                                                    <textarea class="form-control"
+                                                                                        id="businessInformation"
+                                                                                        rows="5"
+                                                                                        placeholder="{{language.type_your_message}}"
+                                                                                        formControlName="description"
+                                                                                        [ngClass]="{'is-invalid': submitted && f.description.errors}">
+                                                                                    </textarea>
+                                                                                    <div *ngIf="submitted && f.description.errors"
+                                                                                        class="invalid-feedback">
+                                                                                        <div
+                                                                                            *ngIf="f.description.errors.required || f.description.errors.cannotContainSpace">
+                                                                                            {{language.business_description}}
+                                                                                            {{language.is_required}}!
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="check_box--part">
+                                                                        <div class="row">
+
+
+
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label
+                                                                                        class="fz16 ">{{language.upload_corporate_document}}
+                                                                                    </label>
+                                                                                    <div class="file_upload">
+                                                                                        <input type="file"
+                                                                                            id="upload_img"
+                                                                                            class="d-none" multiple
+                                                                                            (change)="workplaceDoc($event.target.files)"
+                                                                                            accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf">
+                                                                                        <label for="upload_img"
+                                                                                            class="upload_btn"><i
+                                                                                                class="fas fa-plus"></i></label>
+                                                                                        <div
+                                                                                            class="upload_file  mt-3 text-center">
+                                                                                            <div class="form-row">
+
+                                                                                                <div class="col-sm-6"
+                                                                                                    *ngFor='let docurl of editFileUrls; let i = index;'>
+                                                                                                    <div class="uploaded_file border"
+                                                                                                        *ngIf="docurl.file_type == 'doc'">
+                                                                                                        <img src="assets/images/upload_placeholder.png"
+                                                                                                            id="Profile4"
+                                                                                                            class="mr-3"
+                                                                                                            alt="..."
+                                                                                                            width="28"
+                                                                                                            height="35">
+                                                                                                        <span
+                                                                                                            class="mt-0 file_name d-block">{{commonService.getFileName(docurl.url)}}</span>
+                                                                                                        <span
+                                                                                                            class="upload_delect_btn"
+                                                                                                            (click)="removeImageWorkplace(docurl.id,i)"><i
+                                                                                                                class="fas fa-times"></i></span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-sm-6"
+                                                                                                    *ngFor='let docurl of docUrls; let i = index;'>
+                                                                                                    <div
+                                                                                                        class="uploaded_file border">
+                                                                                                        <img src="assets/images/upload_placeholder.png"
+                                                                                                            id="Profile4"
+                                                                                                            class="mr-3"
+                                                                                                            alt="..."
+                                                                                                            width="28"
+                                                                                                            height="35">
+                                                                                                        <span
+                                                                                                            class="mt-0 file_name d-block">{{docurl.name}}</span>
+                                                                                                        <span
+                                                                                                            class="upload_delect_btn"
+                                                                                                            (click)="removeDoc(i)"><i
+                                                                                                                class="fas fa-times"></i></span>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="email"
+                                                                                        class="fz16 ">{{language.upload_photo_of_company_product}}
+                                                                                    </label>
+                                                                                    <div class="file_upload">
+                                                                                        <input type="file"
+                                                                                            id="upload_img2"
+                                                                                            class="d-none"
+                                                                                            accept="image/*" multiple
+                                                                                            (change)="businessPicture($event.target.files)">
+                                                                                        <label for="upload_img2"
+                                                                                            class="upload_btn"><i
+                                                                                                class="fas fa-plus"></i></label>
+                                                                                        <div
+                                                                                            class="upload_file  mt-3 text-center">
+                                                                                            <div class="form-row">
+                                                                                                <div
+                                                                                                    class="upload_file mt-3 text-center">
+                                                                                                    <div
+                                                                                                        class="form-row">
+
+                                                                                                        <div class="col-sm-6"
+                                                                                                            *ngFor='let url of editFileUrls; let i = index'>
+                                                                                                            <div class="uploaded_file border"
+                                                                                                                *ngIf="url.file_type == 'pic' || url.file_type==='video'">
+                                                                                                                <img [src]="commonService.siteUrl()+url.url"
+                                                                                                                    id="Profile4"
+                                                                                                                    class="mr-3"
+                                                                                                                    alt="..."
+                                                                                                                    width="28"
+                                                                                                                    height="35"
+                                                                                                                    *ngIf="url.file_type==='pic'">
+
+                                                                                                                <video
+                                                                                                                    [src]="commonService.siteUrl()+url.url"
+                                                                                                                    *ngIf="url.file_type==='video' && url"
+                                                                                                                    id="Profile4"
+                                                                                                                    class="mr-3"
+                                                                                                                    alt="..."
+                                                                                                                    width="100"
+                                                                                                                    height="150"
+                                                                                                                    controls></video>
+                                                                                                                <span
+                                                                                                                    class="mt-0 file_name d-block">{{commonService.getFileName(url.url)}}</span>
+                                                                                                                <span
+                                                                                                                    class="upload_delect_btn"
+                                                                                                                    (click)="removeImageWorkplace(url.id,i)"><i
+                                                                                                                        class="fas fa-times"></i></span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="col-sm-6"
+                                                                                                            *ngFor='let url of imageUrls; let i = index'>
+                                                                                                            <div
+                                                                                                                class="uploaded_file border">
+                                                                                                                <img [src]="url.url"
+                                                                                                                    id="Profile4"
+                                                                                                                    class="mr-3"
+                                                                                                                    alt="..."
+                                                                                                                    width="28"
+                                                                                                                    height="35"
+                                                                                                                    *ngIf="url.format==='image'">
+
+                                                                                                                <video
+                                                                                                                    [src]="url.url"
+                                                                                                                    *ngIf="url.format==='video' && url"
+                                                                                                                    id="Profile4"
+                                                                                                                    class="mr-3"
+                                                                                                                    alt="..."
+                                                                                                                    width="100"
+                                                                                                                    height="150"
+                                                                                                                    controls></video>
+                                                                                                                <span
+                                                                                                                    class="mt-0 file_name d-block">{{url.name}}</span>
+                                                                                                                <span
+                                                                                                                    class="upload_delect_btn"
+                                                                                                                    (click)="removeImage(i)"><i
+                                                                                                                        class="fas fa-times"></i></span>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center login_signup_email  ">
+                                                                        <button type="submit" (click)="save()"
+                                                                            class="btn radius-30 mb-5">{{language.submit}}</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+            <!-- ./ All Content Right Sidebar -->
+        </div>
+    </div>
+    <app-inner-footer></app-inner-footer>
+    <!-- <app--footer></app-footer> -->
+
+    <!-- main wrapper -->

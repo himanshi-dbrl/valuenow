@@ -1,0 +1,297 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <div class="row">
+                        <div class="col-lg-12" *ngIf="data">
+                            <div class="myBusiness">
+                                <div class="myBusiness_card mb-3">
+                                    <div class="card">
+                                        <div class="card-header fz20 d-flex justify-content-between align-items-center">
+                                            {{language.details}}
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+
+                                                        <div class="post__aproved text-right p-0 border-bottom-0"
+                                                            *ngIf="data.valuated_by !=null && data.is_valuated ==1">
+                                                            <span><i class="fas fa-check-circle"></i>
+                                                                {{language.business_verified_by}}
+                                                                {{data.valuated_by==1?language.app_name:data.valuated_by==2?language.Self:data.valuated_by==3?language.other:'N/A'}}</span>
+                                                        </div>
+                                                        <!-- User Post -->
+                                                        <div class="posted mb-4">
+                                                            <div class="row">
+                                                                <div class="col-md-7">
+                                                                    <div class="posted_img">
+                                                                        <div class="media">
+
+                                                                            <img (click)="modelSliderOpen(user_info)"
+                                                                                src="{{profileUrl(data.get_post_user_details.image, data.get_post_user_details.gender)}}"
+                                                                                class="mr-3 "
+                                                                                alt="...">
+                                                                            <div class="media-body">
+                                                                                <div class="posted__user-details">
+
+                                                                                    <p class="fz16 font-italic"
+                                                                                        (click)="modelSliderOpen(user_info)">
+                                                                                        {{language.posted_by}}
+                                                                                        {{data.get_post_user_details.first_name | titlecase }}
+                                                                                        {{data.get_post_user_details.last_name | titlecase}}
+                                                                                    </p>
+
+                                                                                    <ul>
+                                                                                        <li><img
+                                                                                                src="assets/images/eye.png" /><span>{{data.view_count}}</span>
+                                                                                        </li>
+                                                                                        <li><img
+                                                                                                src="assets/images/bookmark.png" />
+                                                                                            <span>{{data.total_bookmarked_count}}</span>
+                                                                                        </li>
+                                                                                        <li>
+                                                                                            <a *ngIf="data.post_user_id != userData.id"
+                                                                                                (click)="isChat==1?chats():openChatModule(chatModel)">
+                                                                                                <div
+                                                                                                    class="activity_chat">
+                                                                                                    <img
+                                                                                                        src="./assets/images/chat.png">
+                                                                                                </div>
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="posted__date text-left text-md-right mb-2"
+                                                                        [ngClass]="{'posted__date--remove':data.is_bookmarked==1}">
+                                                                        <!-- user posted Date -->
+
+                                                                        <p
+                                                                            class="mb-0 fz16 posted__text_color text-right">
+                                                                            {{data.created_at | date:'MMM dd,yyyy'}}</p>
+
+                                                                        <button *ngIf="userData.id != data.post_user_id"
+                                                                            (click)="bookmark(data.is_bookmarked== 0 ? 1 : 0, data.id)"
+                                                                            class="btn rounded-0">{{data.is_bookmarked ==0?language.add_bookmark:language.remove_bookmark}}</button>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12 mb-3">
+                                                                    <div class="posted__sort--details">
+                                                                        <!-- user post heading -->
+                                                                        <h3 class=" busines_name_color fz26">
+                                                                            {{data.get_business.business_name | titlecase}}
+                                                                        </h3>
+                                                                        <!-- user post sort descriptions -->
+                                                                        <p class=" field_title fz14">
+                                                                            {{language.post_opportunity_description}}
+                                                                        </p>
+                                                                        <div class="post_details_para">
+                                                                            {{data.description}}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-5">
+                                                                    <div class="post_filed_details">
+                                                                        <p class="field_title fz14">
+                                                                            {{language.field_of_post_opportunity}}
+                                                                        </p>
+                                                                        <h4 class="fz16">
+                                                                            {{language.typeOf ==1?data.get_field.name:data.get_field.ar_name}}
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="post_filed_details">
+                                                                        <p class="field_title fz14">
+                                                                            {{language.sub_field_of_post_opportunity}}
+                                                                        </p>
+                                                                        <h4 class="fz16">
+                                                                            {{data.get_sub_field!=null?language.typeOf ==1?data.get_sub_field.name:data.get_sub_field.ar_name:"N/A"}}
+                                                                        </h4>
+                                                                    </div>
+
+
+                                                                    <div class="post_filed_details">
+                                                                        <p class="field_title fz14">{{language.country}}
+                                                                        </p>
+                                                                        <h4 class="fz16">
+                                                                            {{data.get_country.country_name}}</h4>
+                                                                    </div>
+                                                                    <div class="post_filed_details"
+                                                                        *ngIf="data.get_business_type != undefined">
+                                                                        <p class="field_title fz14">
+                                                                            {{language.business_type}}
+                                                                        </p>
+                                                                        <h4 class="fz16">
+                                                                            {{language.typeOf ==1?data.get_business_type.name:data.get_business_type.ar_name}}
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="post_filed_details">
+                                                                        <p class="field_title fz14">
+                                                                            {{language.invest_range}}
+                                                                        </p>
+                                                                        <h4 class="fz16">
+                                                                            {{data.get_invest_range.name}}
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6"
+                                                                    *ngIf="imageDataChange(data.get_post_images, data.get_business.get_business_files,'pic').length > 0">
+                                                                    <!-- user Galary -->
+                                                                    <div class=" posted__images posted__images--details
+                                                                    mb-3">
+                                                                        <p class="field_title fz14">
+                                                                            {{language.related_images}} </p>
+                                                                        <ul class="list-unstlyed mb-0 d-flex ">
+                                                                            <li (click)="modelSliderOpen(modelSlider)"
+                                                                                *ngFor="let image of imageDataChange(data.get_post_images, data.get_business.get_business_files,'pic'); let i = index;">
+                                                                                <div class="posted__images--more"
+                                                                                    *ngIf="i < '3'">
+                                                                                    <img src="{{image}}" alt="..."
+                                                                                        class="img-fluid rounded-lg business_image_custom">
+                                                                                    <div class="more"
+                                                                                        *ngIf="imageDataChange(data.get_post_images, data.get_business.get_business_files,'pic').length > '2' && i == 2">
+                                                                                        {{language.more}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="posted__documents"
+                                                                        *ngIf="imageDataChange(data.get_post_images, data.get_business.get_business_files,'doc').length>0">
+                                                                        <p class="field_title fz14">
+                                                                            {{language.related_documents}}
+                                                                        </p>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <ul class="document_list">
+                                                                                    <li class="check_empty"
+                                                                                        *ngFor="let image of imageDataChange(data.get_post_images, data.get_business.get_business_files,'doc'); let i = index;">
+                                                                                        <span>{{commonService.getFileName(image)}}</span>
+                                                                                        <a href="{{image}}"
+                                                                                            download="{{image}}"
+                                                                                            target="_blank"><i
+                                                                                                class="fas fa-download"></i></a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            <!-- <div class="col-md-6">
+                                                                                <div class="zip_download">
+                                                                                    <button class="upload_btn border-0">
+                                                                                        <i class="fas fa-file-archive"
+                                                                                            (click)="downloadZip(data.id)"></i>
+                                                                                    </button>
+                                                                                    <div
+                                                                                        class="upload_file text-center mt-2">
+                                                                                        <span
+                                                                                            class="mt-0 file_name text-uppercase">{{language.download_all_file}}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div> -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- ./ User Post -->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ./ All Content Right Sidebar -->
+            </div>
+        </div>
+
+        <ng-template #chatModel let-modal class="modal-dialog modal-dialog-centered">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="resend_link"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-5">
+                <div class="resend_link">
+                    <p>{{language.you_want_to_say_hi}}</p>
+
+                    <div class="text-center login_signup_email  ">
+                        <a class="btn rounded-pill mt-3" (click)="modal.dismiss('Cross click')"
+                            (click)="sayHiMessage()">{{language.continue}} </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #modelSlider let-modal class="modal-dialog modal-dialog-centered">
+            <div class="modal-body p-0">
+                <app-common-slider
+                    [images]="imageDataChange(data.get_post_images, data.get_business.get_business_files,'pic')">
+                </app-common-slider>
+            </div>
+        </ng-template>
+
+        <ng-template #user_info let-modal class="modal-dialog modal-dialog-centered">
+            <div class="modal-header border-bottom-0">
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <section class="candidates-profile-bg">
+                <div class="bg-overlay"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="candidates-profile-details text-center">
+                                <img src="{{profileUrl(data.get_post_user_details.image)}}"
+                                    class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
+                                <h4 class="candidates-profile-name mb-2">
+                                    {{data.get_post_user_details.first_name | titlecase }}
+                                    {{data.get_post_user_details.last_name | titlecase}}</h4>
+                                <p class="text-black-50 mb-2"><i
+                                        class="mdi mdi-bank mr-2"></i>{{data.get_post_user_details.email}}</p>
+                                <ul class="candidates-profile-icons list-inline mb-3">
+                                    <li class="list-inline-item text-black-50 pr-2 f-16">
+                                        {{data.get_post_user_details.country_code}}{{data.get_post_user_details.phone_number}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </ng-template>
+    </div>
+    <app-inner-footer></app-inner-footer>
+
+    <!-- main wrapper -->

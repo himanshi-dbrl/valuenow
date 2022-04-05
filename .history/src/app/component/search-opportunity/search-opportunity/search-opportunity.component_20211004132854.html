@@ -1,0 +1,212 @@
+<app-inner-main-header></app-inner-main-header>
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left Side Bar -->
+      <div class="left-side">
+        <app-sidebar></app-sidebar>
+      </div>
+      <!-- ./ Left Side Bar -->
+      <!-- All Content Right Sidebar -->
+      <div class="right-side">
+        <div class="container-fluid">
+          <!-- Content Main Heading -->
+          <app-inner-header [headerData]="headerData"></app-inner-header>
+          <!-- ./ Content Main Heading -->
+
+          <div class="myBusiness">
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <div class="myBusiness_card mb-3">
+                  <div class="card">
+                    <div class="card-header fz20">
+                      {{language.search_for_an_oppo}}
+                    </div>
+                    <div class="card-body">
+                      <div class="container">
+                        <div class="row justify-content-center">
+                          <div class="col-lg-11">
+
+                            <form class="login_signin_form myBusiness_form" [formGroup]="searchPostForm">
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="choosefield" class="fz16 ">{{language.choose_field_of_opportunity}}
+                                    </label>
+                                    <ngx-select-dropdown [config]="fieldconfig" [options]="fieldData"
+                                      formControlName="field" (change)="getSubfield($event.value)" [multiple]="false"
+                                      [ngClass]="{'is-invalid':f.field.errors && submitted}">
+                                    </ngx-select-dropdown>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="chooseSubfield" class="fz16 ">{{language.choose_sub_field}} </label>
+                                    <ngx-select-dropdown [config]="fconfig" [options]="subFieldData"
+                                      formControlName="subField" [multiple]="false">
+                                    </ngx-select-dropdown>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="fz16 ">{{this.language.business_type}}</label>
+                                    <ngx-select-dropdown [config]="fbconfig" [options]="businessType"
+                                      formControlName="business_type" [multiple]="false">
+                                    </ngx-select-dropdown>
+                                    <!-- <label
+                                      class="fz16 ">{{userType==2?this.language.business_type:this.language.i_would_like_to_invest}}</label> -->
+                                    <!-- <ngx-select-dropdown [config]="userType==2?fconfig:config"
+                                      [options]="userType==2?businessType:investingAsList"
+                                      formControlName="{{userType==2?'business_type':'invest_as'}}" [multiple]="false">
+                                    </ngx-select-dropdown> -->
+
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label for="chooseCountry" class="fz16 ">{{language.choose_country}} </label>
+                                    <ngx-select-dropdown [config]="countryConfig" [options]="country"
+                                      formControlName="country" [multiple]="false">
+                                    </ngx-select-dropdown>
+                                  </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="userType == 1">
+                                  <div class="form-group">
+                                    <label for="rangeOfInvestment" class="fz16 ">{{language.range_of_investment}}
+                                    </label>
+                                    <ngx-select-dropdown [config]="config" [options]="rangeOfInvestment"
+                                      formControlName="range" [multiple]="false" class="select-height">
+                                    </ngx-select-dropdown>
+
+                                  </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="userType == 1">
+                                  <div class="form-group">
+                                    <label for="dateOfPosting" class="fz16">{{language.date_of_posting}}</label>
+                                    <input type="text" class="form-control mb-4 datepicker_input"
+                                      formControlName="dateOfPost" bsDaterangepicker [bsConfig]="bsConfig"
+                                      id="dateOfPosting" placeholder="MM/DD/YYYY - MM/DD/YYYY">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6" *ngIf="userType == 2">
+                                  <div class="form-group">
+                                    <label for="yearOfEstb" class="fz16 ">{{language.year_of_establishment}} </label>
+                                    <input type="text" class="form-control mb-4" id="yearOfEstb" placeholder="YYYY"
+                                      formControlName="estb_year">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6" *ngIf="userType == 2">
+                                  <div class="form-group">
+                                    <label for="rangeOfInvestment" class="fz16 ">{{language.no_of_employees}} </label>
+                                    <ngx-select-dropdown [config]="configEmployeeName" [options]="numberofEmployess"
+                                      formControlName="employees" [multiple]="false">
+                                    </ngx-select-dropdown>
+
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6" *ngIf="userType == 2">
+                                  <div class="form-group">
+                                    <label for="estimatedBusinessValue"
+                                      class="fz16 ">{{language.estimated_business_value}} </label>
+                                    <input type="text" class="form-control mb-4" id="estimatedBusinessValue"
+                                      formControlName="estimated_business_value" placeholder="{{language.enter_value}}">
+                                  </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                  <div class="text-center login_signup_email mt-4 ">
+                                    <button type="submit" class="btn radius-30 mb-5"
+                                      (click)="search(true)">{{language.search}} </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Opportunities Posted -->
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="opportunities_posted">
+                <div class="card" style="overflow:visible" >
+                  <div class="card-header fz20">
+                    {{language.all_oppo}}
+                    <div class="float-right d-flex align-items-center fz18">
+                      {{language.sort_by}}
+
+                      <div class="filter_dropdown ">
+                        <span onclick="myFunctionFilter()" class="dropbtn">
+                          {{sortBy==1 || sortBy == 4?language.latest:sortBy==2?language.most_bookmark:language.most_view}}
+                        </span>
+                        <div id="myDropdownFilter" class="dropdown-content select_list  list-unstyled">
+                          <li (click)="filterSortBy(4)">{{language.latest}}</li>
+                          <li (click)="filterSortBy(2)">{{language.most_bookmark}}</li>
+                          <li (click)="filterSortBy(3)">{{language.most_view}}</li>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                  <div class="card-body" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+                    <div class="container-fluid">
+                      <!-- User Post -->
+
+                      <div class="posted mb-3"
+                        *ngFor="let data of listData; let i = index; TrackBy: commonService.trackByData">
+                        <div
+                          *ngIf="(i == 0 ||  ((((position*((i/position)-1))+(position+1))% (position+1)) != 0)) || data.title == undefined ">
+                          <app-post-opportunities-list [data]="data" [page]="search" [index]="i" [capable]="capable"
+                            (updateStatus)="updateStatus($event)">
+                          </app-post-opportunities-list>
+                        </div>
+                        <div
+                          *ngIf="i > 0 &&  ((((position*((i/position)-1))+( position+1 ))% ( position + 1 ) ) == 0) && data.title != undefined ">
+                        
+                        </div>
+                      </div>
+                      <div class="posted pb-5 pt-5 text-center" *ngIf="notFound">
+                        <p class="fz22">{{language.see_your_search_result}}</p>
+                      </div>
+                      <!-- ./ User Post -->
+
+                      <!-- See All Post -->
+                      <div class="see_all text-right mt-4">
+                        <!--    <a href="#" class="fz18 text_color_primary font_weight_500">See All</a> -->
+                      </div>
+                      <!-- ./ See All Post -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ./ Opportunities Posted -->
+
+
+
+        </div>
+
+      </div>
+      <!-- ./ All Content Right Sidebar -->
+    </div>
+  </div>
+  <app-inner-footer></app-inner-footer>
+  <!-- <app--footer></app-footer> -->
+
+  <!-- main wrapper -->

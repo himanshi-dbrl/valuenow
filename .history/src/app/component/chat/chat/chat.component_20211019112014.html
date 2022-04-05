@@ -1,0 +1,168 @@
+<app-inner-main-header #innermainheader></app-inner-main-header>
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <!-- Chat Main -->
+                    <div class="main-chat">
+                        <div class="row mb-4">
+                            <div class="col-lg-12">
+                                <!-- Chat Container-->
+                                <div class="chat_container">
+                                    <!-- Chat -->
+                                    <div class="chat">
+                                        <div class="chat_heading">
+                                            <h3 class="fz18 font_weight_500 text-white">{{language.chat}}</h3>
+                                        </div>
+                                        <div class="chat_user">
+                                            <div class="chat_user_search">
+                                                <input type="text" id="user_search" placeholder="{{language.search}} "
+                                                    [attr.disabled]="saveFriendLists.length ==0?'':null"
+                                                    (keyup)="filterUser($event.target.value)" value="{{searchValue}}" />
+                                                <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="users_list">
+                                            <div class="chat_user_list">
+                                                <ul class="list-unstyled p-0  mob_chat">
+                                                    <li (click)="messageIn();"
+                                                        *ngFor="let user of friendLists; let i = index"
+                                                        class="user_list_user"
+                                                        [ngClass]="{'active': activeUserData.user_id==user.user_id}">
+                                                        <div class="media" (click)="activeChatUser(user, i)">
+                                                            <!-- Friend Image -->
+                                                            <img class="align-self-center mr-3 rounded-circle"
+                                                                [src]="user.image==null?'assets/images/post_user/user1.png':commonService.site_url+user.image"
+                                                                width="56" height="56" alt="Generic placeholder image">
+                                                            <div class="media-body">
+                                                                <!-- Friend Name and sort description -->
+                                                                <h5
+                                                                    class="mt-2 pt-1 fz15 font_weight_600 text_color_primary">
+                                                                    <!-- Name -->
+                                                                    {{user.first_name+' '+user.last_name }}
+                                                                    <!-- Description -->
+                                                                    <span *ngIf="user.type == 1"
+                                                                        class="fz15 font_weight_600 d-block posted__text_color"
+                                                                        [innerHtml]="user.message.length>20? (user.message | slice:0:20)+'...':(user.message)">
+                                                                    </span>
+                                                                    <span *ngIf="user.type == 2"
+                                                                        class="fz15 font_weight_600 d-block posted__text_color">
+                                                                        <i class="fa fa-file-o"></i>
+                                                                        {{commonService.getFileName(user.message)}}</span>
+                                                                </h5>
+                                                                <span *ngIf="user.unread_count > 0"
+                                                                    class="chat_count">{{user.unread_count}}</span>
+
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li *ngIf="friendLists.count ==0 && loaderShow == false"
+                                                        class="text-center">{{language.explore_opp}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ./ Chat -->
+                                    <!-- Message -->
+                                    <div class="message" id="msg_message">
+                                        <div class="message_title d-flex justify-content-between">
+                                            <h3 class="fz18 font_weight_500 text-white">{{language.message}}</h3>
+                                            <div class="bg_back float-right" id="bg_back" (click)="messageOut();">
+                                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="message_history" id="chat">
+                                            <div class="list-unstyled p-0" id="chat_s">
+                                                <div *ngFor="let msg of messages" [ngx-scroll-to]="destinationRef"
+                                                    infiniteScroll [infiniteScrollDistance]="2"
+                                                    [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
+                                                    (scrolled)="onScrollDown()"
+                                                    (scrolled)="innermainheader.getChatCount(isScroll)"
+                                                    (scrolledUp)="onScrollUp()">
+                                                    <div class="coming search-results"
+                                                        *ngIf="msg.senderId != sender_id">
+                                                        <div class="coming_msg_img mr-3 mb-3">
+                                                            <img [src]="activeUserData.image==null?'assets/images/post_user/user1.png':commonService.site_url+activeUserData.image"
+                                                                class="rounded-circle" width="34" height="34">
+                                                        </div>
+                                                        <div class="coming_msg">
+                                                            <!-- message -->
+                                                            <p *ngIf="msg.type ==1">{{msg.messages}}</p>
+                                                            <p *ngIf="msg.type == 2"> <a class="btn" role="button"
+                                                                    href="{{imageBaseUrl+msg.messages}}" download
+                                                                    target="_blank">
+                                                                    <i class="fa fa-file"></i>
+                                                                </a>
+                                                            </p>
+                                                            <!-- Time -->
+                                                            <span class="msg_time"
+                                                                [innerText]="msg.created_at | dateAgo">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="coming_msg" *ngIf="msg.senderId == sender_id">
+                                                        <p *ngIf="msg.type == 1">{{msg.messages}}</p>
+                                                        <p *ngIf="msg.type == 2">
+                                                            <a class="btn" role="button"
+                                                                href="{{imageBaseUrl+msg.messages}}" download
+                                                                target="_blank">
+                                                                <i class="fa fa-file"></i>
+                                                            </a>
+                                                        </p>
+
+                                                        <span class="msg_time" [innerText]="msg.created_at | dateAgo">
+                                                            {{msg.created_at | dateAgo}}</span>
+                                                    </div>
+
+                                                </div>
+                                                <div id="destination" #destinationRef></div>
+                                            </div>
+                                        </div>
+                                        <div class="message_post">
+                                            <textarea class="form-control" id="messageArea" rows="3"
+                                                [attr.disabled]="saveFriendLists.length ==0?'':null"
+                                                (change)="textChange($event.target.value)" value="{{message}}"
+                                                (keyup.enter)="sendMessage()"
+                                                placeholder="{{language.write_your_text}} "></textarea>
+                                            <label _ngcontent-eam-c8="" class="btn rounded-pill mt-2 mr-3"
+                                                for="profile_pic"><i class="fa fa-plus-circle"></i></label>
+                                            <input #fileTypeRef type="file" name="file" id="file_chat" accept="image/*"
+                                                class="d-none" id="profile_pic" type="file"
+                                                [attr.disabled]="saveFriendLists.length ==0?'':null"
+                                                (change)="fileUpload($event.target.files)">
+                                            <button type="reset" (click)="sendMessage()"
+                                                [attr.disabled]="saveFriendLists.length ==0?'':null"></button>
+                                        </div>
+                                    </div>
+                                    <!-- ./ Message -->
+                                </div>
+                                <!-- Chat -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ Chat Main -->
+                </div>
+            </div>
+            <!-- ./ All Content Right Sidebar -->
+        </div>
+    </div>
+    <app-inner-footer></app-inner-footer>
+    <!-- <app--footer></app-footer> -->
+
+    <!-- main wrapper -->

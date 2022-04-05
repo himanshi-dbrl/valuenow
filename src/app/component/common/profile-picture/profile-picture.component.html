@@ -1,0 +1,83 @@
+<div class="user_img position-relative">
+    <img [src]="setUrl()" alt="" />
+    <div class="user_img--upload">
+        <a href="javascript:void(0)" (click)="openVerticallyCentered(resend_link)">
+            <i class="fas fa-camera"></i>
+        </a>
+    </div>
+</div>
+<div class="user_details">
+    <div class="user_name">
+        <div class="dropdown">
+            <span (click)="subMenu(myDropdownClass)" class="dropbtn">{{userData.first_name +' '+ userData.last_name}}
+            </span>
+            <div [id]="myDropdownClass" class="dropdown-content user_actions list-unstyled">
+                <li><a [routerLink]="['/profile']">{{language.profile_setting}}</a></li>
+                <li *ngIf="userData.social_login == 0"><a
+                        [routerLink]="['/profile/change-password']">{{language.change_password}}</a></li>
+                <li class="cursor-pointer"><a (click)="openVerticallyCentered(logout_modal)">{{language.logout}}</a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="user_email">
+        <p>{{userData.email}}</p>
+    </div>
+</div>
+<!-- Modal -->
+<ng-template #resend_link let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-header py-0 border-0">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body px-5">
+
+        <h5 class="modal-title text-center w-100 text-uppercase" id="resend_link">{{language.profile_picture}}</h5>
+        <div class=" mt-3 text-center">
+            <img *ngIf="userData.image !=null" [src]="setUrl()" alt="" class="profile_pic_big" />
+        </div>
+        <div class="text-center login_signup_email  mt-3  mb-5">
+            <input type="file" id="profile_pic" class="d-none" accept="image/*"
+                (change)="fileUpload($event.target.files)" />
+            <label class="btn rounded-pill mt-2 w-100" for="profile_pic">{{language.upload}}</label>
+            <a *ngIf="userData.image !=null" class="btn rounded-pill w-100"
+                (click)="openConfirmationDialog(deleteProfilePic)">{{language.delete}}</a>
+        </div>
+
+    </div>
+</ng-template>
+<!-- ./ Modal -->
+
+
+<ng-template #deleteProfilePic let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-body py-5 text-center">
+        <h5>{{language.are_you_sure_you_want_to_delete}} <span class="busines_name_color"
+                *ngIf="postData">{{language.profile_picture}}</span>?
+        </h5>
+    </div>
+    <div class="modal-footer">
+        <div class="posted__date d-flex justify-content-center w-100">
+            <button class="btn text-white rounded-pill btn-edit mr-1"
+                (click)="deleteImagedialogClose()">{{language.no}}</button>
+            <button class="btn text-white rounded-pill btn-delete ml-1" (click)="deleteProfilepic()">
+                {{language.yes}}</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #logout_modal let-modal class="modal-dialog modal-dialog-centered">
+    <div class="modal-body py-5 text-center">
+        <h5>{{language.are_you_sure_you_want_to_logout}}?
+        </h5>
+    </div>
+    <div class="modal-footer">
+        <div class="posted__date d-flex justify-content-center w-100">
+            <button class="btn text-white rounded-pill btn-edit mr-1" (click)="closeDialog()">{{language.no}}</button>
+            <button class="btn text-white rounded-pill btn-delete ml-1" (click)="signOut()">
+                {{language.yes}}</button>
+        </div>
+    </div>
+</ng-template>

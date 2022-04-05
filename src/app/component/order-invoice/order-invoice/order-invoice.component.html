@@ -1,0 +1,221 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <!-- Profile Strength -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="profile_strength mb-4">
+                                <div class="card">
+                                    <div class="card-header fz20 ">
+                                        {{language.payment_order_history}}
+                                    </div>
+                                    <div class="card-body progress_card-body px-0">
+
+                                        <!-- payment-invoice -->
+                                        <div class="payment-invoice" *ngFor="let data of datas; let i = index;">
+                                            <div class="row">
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <h6 class="pl-0 pl-md-3">{{language.paid_as}}</h6>
+                                                        <button type="button"
+                                                            class="btnenterpre">{{data.package_type !='2'?language.entrepreneur:language.investors}}</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-lg-4">
+                                                    <ul>
+                                                        <li><span>{{language.order_id}}</span>:
+                                                            <strong>{{encodeId(data.id)}}</strong>
+                                                        </li>
+                                                        <li><span>{{language.date}}</span>:
+                                                            <strong>{{data.updated_at | date:'longDate'}} |
+                                                                {{data.updated_at | date:'shortTime'}}</strong>
+                                                        </li>
+                                                        <li><span>{{language.amount}} </span>: <strong>
+                                                                {{data.amount}} {{data.currency}}</strong>
+                                                        </li>
+                                                        <li><span>{{language.tax}} </span>: <strong>
+                                                                {{data.tax}}%</strong>
+                                                        </li>
+                                                        <li><span>{{language.total_amount}} </span>: <strong>
+                                                                {{data.totalAmount}} {{data.currency}}</strong>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6 col-lg-3">
+                                                    <ul>
+                                                        <li><span>{{language.ordered_package}}</span> : <br>
+                                                            <strong>{{data.package_type == 1?language.entrepreneur:data.package_type ==2?language.investor:language.business_valuation}}</strong>
+                                                        </li>
+                                                        <li class="mt-2">
+                                                            <a class="text-capitalize cursor-pointer"
+                                                                (click)="details(user_info,data.package_id, data.package_type, data)">{{language.view_details}}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-lg-3 text-left text-md-right">
+                                                    <button type="button" class="btn-invoice mb-3"
+                                                        (click)="generateInvoice(data.id)">{{language.generate_invoice}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="payment-invoice pb-5 pt-5 text-center" *ngIf="notFound">
+                                            <p class="fz22">{{language.buy_package_and_find}}</p>
+                                        </div>
+                                        <!-- ./ payment-invoice -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ Profile Strength -->
+
+                    <ng-template #user_info let-modal class="modal-dialog modal-dialog-centered">
+                        <div class="modal-header border-bottom-0">
+                            <h4>{{language.package_details}}</h4>
+                            <button type="button" class="close" aria-label="Close"
+                                (click)="modal.dismiss('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <section class="candidates-profile-bg">
+                            <div class="bg-overlay"></div>
+                            <div class="container">
+                                <div class="card-body progress_card-body px-0">
+
+                                    <!-- payment-invoice -->
+                                    <div class="payment-invoice px-1">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <h6 class="pl-0">{{language.package_name}}</h6>
+                                                    <button type="button"
+                                                        class="btnenterpre pl-3 align-center">{{invoiceDetails.name}}</button>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <h6 class="pl-0">{{language.amount}}</h6>
+                                                    <button type="button"
+                                                        class="btnenterpre">{{invoiceDetails.amount}}</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 col-lg-9">
+                                                <ul>
+                                                    <li *ngIf="activeData.package_type == 3">
+                                                        <span>{{language.number_of_updates}}</span>:
+                                                        <strong>{{invoiceDetails.number_of_update}}</strong>
+                                                    </li>
+                                                    <li
+                                                        *ngIf="activeData.package_type == 3 && activeData.amount != invoiceDetails.amount">
+                                                        <span>{{language.arabic_version}}</span>:
+                                                        <strong>{{invoiceDetails.arabic_version}}</strong>
+                                                    </li>
+                                                    <li *ngIf="activeData.package_type == 3">
+                                                        <span>{{language.full_valuation}}</span>:
+                                                        <i *ngIf="invoiceDetails.full_valuation_report_eng==1"
+                                                            class="fa fa-check text-success" aria-hidden="true"></i>
+                                                        <i *ngIf="invoiceDetails.full_valuation_report_eng==0"
+                                                            class="fa fa-times text-danger" aria-hidden="true"></i>
+                                                        <!-- <strong>{{invoiceDetails.full_valuation_report_eng}}</strong> -->
+                                                    </li>
+                                                    <li *ngIf="activeData.package_type == 3">
+                                                        <span>{{language.results_guaranteed}}</span>:
+                                                        <!-- <strong>{{invoiceDetails.result_guaranted_day}}</strong> -->
+                                                        <i *ngIf="invoiceDetails.result_guaranted_day==1"
+                                                            class="fa fa-check text-success" aria-hidden="true"></i>
+                                                        <i *ngIf="invoiceDetails.result_guaranted_day==0"
+                                                            class="fa fa-times text-danger" aria-hidden="true"></i>
+                                                    </li>
+
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.post_ent_invt_opp}}</span>:
+                                                        <strong>{{invoiceDetails.post_opportunities_investment >=100000?language.unlimited:invoiceDetails.post_opportunities_investment}}</strong>
+                                                    </li>
+
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.search_of_invt_opp}} </span>:
+                                                        <strong>
+                                                            {{invoiceDetails.search_opportunities >=100000?language.unlimited:invoiceDetails.search_opportunities}}</strong>
+                                                    </li>
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.unlook_full_intre_conact}}</span>:
+                                                        <strong>{{invoiceDetails.unlook_full_entrepreneur_Conacts}}
+                                                        </strong>
+                                                    </li>
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.free_chat_with_investor}}</span>:
+                                                        <i *ngIf="invoiceDetails.free_chat==1"
+                                                            class="fa fa-check text-success" aria-hidden="true"></i>
+                                                        <i *ngIf="invoiceDetails.free_chat==0"
+                                                            class="fa fa-times text-danger" aria-hidden="true"></i>
+                                                        <!-- <strong>{{invoiceDetails.free_chat== 1 ? 'True':'False'}}</strong> -->
+                                                    </li>
+
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.banner_host_duration}} </span>:
+                                                        <i *ngIf="invoiceDetails.banner_host_duration==1"
+                                                            class="fa fa-check text-success" aria-hidden="true"></i>
+                                                        <i *ngIf="invoiceDetails.banner_host_duration==0"
+                                                            class="fa fa-times text-danger" aria-hidden="true"></i>
+                                                        <!-- <strong>
+                                                            {{invoiceDetails.banner_host_duration == 1 ? 'True':'False'}}</strong> -->
+                                                    </li>
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.your_post_appear_randomly}} </span>:
+                                                        <i *ngIf="invoiceDetails.appear_post_number==1"
+                                                            class="fa fa-check text-success" aria-hidden="true"></i>
+                                                        <i *ngIf="invoiceDetails.appear_post_number==0"
+                                                            class="fa fa-times text-danger" aria-hidden="true"></i>
+                                                        <!-- <strong>
+                                                            {{invoiceDetails.appear_post_number == 1 ? 'True':'False'}}</strong> -->
+                                                    </li>
+                                                    <li *ngIf="activeData.package_type != 3">
+                                                        <span>{{language.promote_your_opp_by_email}} </span>:
+                                                        <i *ngIf="invoiceDetails.promote_post==1"
+                                                            class="fa fa-check text-success" aria-hidden="true"></i>
+                                                        <i *ngIf="invoiceDetails.promote_post==0"
+                                                            class="fa fa-times text-danger" aria-hidden="true"></i>
+                                                        <!-- <strong>
+                                                            {{invoiceDetails.promote_post == 1 ? 'True':'False'}}</strong> -->
+                                                    </li>
+                                                    <li><span>{{language.duration}} </span>:
+                                                        <strong>
+                                                            {{invoiceDetails.duration}}
+                                                            {{invoiceDetails.duration ==language.open?'':invoiceDetails.duration > 1?language.months:language.month }}</strong>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- ./ payment-invoice -->
+                                </div>
+
+                            </div>
+                        </section>
+                    </ng-template>
+
+
+                </div>
+            </div>
+            <!-- ./ All Content Right Sidebar -->
+        </div>
+    </div>
+    <app-inner-footer></app-inner-footer>
+    <!-- <app--footer></app-footer> -->
+
+    <!-- main wrapper -->

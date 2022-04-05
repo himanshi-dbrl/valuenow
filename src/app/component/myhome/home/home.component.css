@@ -1,0 +1,26 @@
+.cursor-pointer{
+    cursor: pointer;
+}
+.action_btn{
+    display: none;
+}
+.StoriesSlider__item{
+    min-height: 710px;
+}
+@media (max-width:1080px){
+    .action_btn{
+        display: block;
+    }
+    .StoriesSlider__item{
+        min-height: 710px;
+    }
+}
+
+@media (max-width:767px){
+    .action_btn{
+        display: block;
+    }
+    .StoriesSlider__item{
+        min-height: auto;
+    }
+}

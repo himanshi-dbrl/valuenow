@@ -1,0 +1,78 @@
+<app-inner-main-header></app-inner-main-header>
+
+
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Side Bar -->
+            <div class="left-side">
+                <app-sidebar></app-sidebar>
+            </div>
+            <!-- ./ Left Side Bar -->
+            <!-- All Content Right Sidebar -->
+            <div class="right-side">
+                <div class="container-fluid">
+                    <!-- Content Main Heading -->
+                    <app-inner-header [headerData]="headerData"></app-inner-header>
+                    <!-- ./ Content Main Heading -->
+                    <div class="my_dashoard">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link posted__text_color font_weight_500 fz18 active" id="home-tab"
+                                    data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"
+                                    (click)="getList(1)">{{language.opportunities_posted}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link posted__text_color font_weight_500 fz18" id="profile-tab"
+                                    (click)="getSaveData(1)" data-toggle="tab" href="#profile" role="tab"
+                                    aria-controls="profile" aria-selected="false">{{language.opportunities_saved}}</a>
+                            </li>
+                        </ul>
+
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="posted mb-4"
+                                    *ngFor="let data of userPost; let i = index; TrackBy: commonService.trackByData;">
+                                    <app-opportunities-list [data]="data" [index]="i" [capable]=[capable]
+                                        (removeUserPost)="removeUserPost($event)" (updateStatus)="updateStatus($event)">
+                                    </app-opportunities-list>
+                                </div>
+                                <div class="posted pb-5 pt-5 text-center" *ngIf="notFound == true">
+                                    <p class="fz22"> {{language.post_some_enticing_opp}}</p>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"
+                                infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+
+                                <!-- User Post -->
+                                <div class="posted mb-4"
+                                    *ngFor="let data of listData; let i = index; TrackBy: commonService.trackByData;">
+                                    <app-post-opportunities-list [data]="data" [page]="dashboard" [index]="i"
+                                        [capable]="capableForView" (updateStatus)="removeBookmarkStatus($event)">
+                                    </app-post-opportunities-list>
+                                </div>
+                                <div class="posted pb-5 pt-5 text-center" *ngIf="notFound == true">
+                                    <p class="fz22">{{language.bookmark_already_posted_opp}}</p>
+                                </div>
+                                <!-- ./ User Post -->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <!-- ./ All Content Right Sidebar -->
+        </div>
+    </div>
+    <app-inner-footer></app-inner-footer>
+    <!-- <app--footer></app-footer> -->
+
+    <!-- main wrapper -->

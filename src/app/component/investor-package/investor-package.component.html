@@ -1,0 +1,155 @@
+<h5 class="card-header">{{language.investor_packages}}</h5>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="price_heading mb-3">
+                <h3 class="fz20 font_weight_600 text-center mt-4 mb-0 border-0">{{language.select_a_investor_package}}
+                </h3>
+            </div>
+            <div class="pricing_main mb-4">
+                <div class="d-flex justify-content-center pricing_color">
+                    <!-- Plan Type -->
+                    <div class="col plan-main">
+                        <div class="plan-head">
+                            <div class="plan-blank">&nbsp;</div>
+                            <div class="plan-heading">{{language.choose_your_plan}}</div>
+                        </div>
+                        <div class="plan-type">
+                            <div class="plan-cell">
+                                <p> {{language.post_inv_invmnt_opp}}</p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>{{language.search_of_entp_opp}}</p>
+                            </div>
+
+                            <div class="plan-cell">
+                                <p>{{language.unlook_full_intre_conact}}</p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>{{language.free_Chat_with_investor}}</p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>{{language.banner_host_duration}}</p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>{{language.your_post_appear_randomly}}</p>
+                            </div>
+
+                            <div class="plan-cell">
+                                <p>{{language.promote_your_opp_by_email}}</p>
+                            </div>
+                            <div class="plan-cell">
+                                <p> {{language.duration}} </p>
+                            </div>
+                            <div class="plan-cell">
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Plan Type -->
+                    <!-- plan Section One -->
+
+                    <div *ngFor="let data of investorPlan; let i = index;" class="col plan sec-one">
+                        <div class="plan-head">
+                            <div class="plan-blank">{{data.name}}</div>
+                            <div class="plan-heading">
+                                {{data.amount!=0?'$'+data.amount:language.free}}
+                            </div>
+                        </div>
+                        <div class="plan-type">
+                            <div class="plan-cell">
+                                <p>{{data.post_opportunities_investment >=100000?language.unlimited:data.post_opportunities_investment}}
+                                </p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>{{data.search_opportunities >=100000?language.unlimited:data.search_opportunities}}
+                                </p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>
+                                    <i *ngIf="data.unlook_full_entrepreneur_Conacts==0" class="fa fa-times text-danger"
+                                        aria-hidden="true"></i>
+                                    <span *ngIf="data.unlook_full_entrepreneur_Conacts!=0">
+                                        {{data.unlook_full_entrepreneur_Conacts >=100000?language.unlimited:data.unlook_full_entrepreneur_Conacts}}
+                                    </span>
+
+                                </p>
+                            </div>
+
+                            <div class="plan-cell">
+                                <p>
+                                    <i *ngIf="data.free_chat==1" class="fa fa-check text-success"
+                                        aria-hidden="true"></i>
+                                    <i *ngIf="data.free_chat==0" class="fa fa-times text-danger" aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>
+                                    <i *ngIf="data.banner_host_duration==1" class="fa fa-check text-success"
+                                        aria-hidden="true"></i>
+                                    <i *ngIf="data.banner_host_duration==0" class="fa fa-times text-danger"
+                                        aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>
+                                    <i *ngIf="data.appear_post_number==1" class="fa fa-check text-success"
+                                        aria-hidden="true"></i>
+                                    <i *ngIf="data.appear_post_number==0" class="fa fa-times text-danger"
+                                        aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="plan-cell">
+                                <p>
+                                    <i *ngIf="data.promote_post==1" class="fa fa-check text-success"
+                                        aria-hidden="true"></i>
+                                    <i *ngIf="data.promote_post==0" class="fa fa-times text-danger"
+                                        aria-hidden="true"></i>
+                                </p>
+                            </div>
+
+                            <div class="plan-cell">
+                                <p>{{data.duration ==0 ?language.open: data.duration == 1?data.duration+ language.month: data.duration + language.months}}
+                                </p>
+                            </div>
+                            <div class="plan-cell">
+                                <button class="btn rounded-pill cell-buy-now"
+                                    (click)="data.isUse != undefined && i < data.isUse?downgrade():data.isUse != undefined && i == data.isUse?'':data.isUse != undefined && i >= data.isUse?upgradePackage(upgradePackageTmpInv,data):purchagePackage(data)">{{takePlan == true && data.amount== 0 && freePlan==false?language.expired:data.amount== 0 && freePlan==false?language.active:data.isPackage != undefined && data.isPackage == true?language.activated:language.buy_now}}</button>
+                                <!-- <button class="btn rounded-pill cell-buy-now"
+                                (click)="data.isUse == undefined || i>data.isUse?purchagePackage(data):''">{{data.isPackage != undefined && data.isPackage == true?'Active':'Buy NOW'}}</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End plan Section One -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #upgradePackageTmpInv let-modal class="modal-dialog modal-dialog-centered">
+    <!-- <div class="modal fade " id="resend_link" tabindex="-1" role="dialog" aria-labelledby="resend_link"
+        aria-hidden="true"> -->
+    <!-- <div class="modal-header"> -->
+
+    <div class="modal-header border-0">
+        <h5 class="modal-title" id="resend_link"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body px-5">
+        <div class="resend_link">
+            <p>{{language.are_you_sure_for_upgrade_your_account}}</p>
+            <div class="text-center login_signup_email  ">
+                <a class="btn rounded-pill mt-3" (click)="purchagePackage(upgradePckgData)">{{language.continue}}</a>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- </div> -->
+</ng-template>

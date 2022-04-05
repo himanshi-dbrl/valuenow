@@ -1,0 +1,150 @@
+<app-header></app-header>
+<!-- main wrapper -->
+<div class="main-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Login -->
+                <div class="login_page">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-11">
+                                <!-- Title -->
+                                <div class="login__page-first text-center">
+                                    <h3 class="login__page--title ">{{language.otp_verification}} </h3>
+                                </div>
+                                <!-- ./ Title -->
+
+                                <!-- Sign up form -->
+                                <div class="login_signin_form ">
+                                    <form [formGroup]="otpForm">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-5">
+                                                <p class="text-center allready_menber"
+                                                    [innerHtml]="language.enter_the_verification_code_sent_to_mobile_no">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+
+                                                    <div class="mobleNo_select form-control d-flex">
+                                                        <ngx-select-dropdown (change)="countryCodeChanged($event.value)"
+                                                            class="countryCode" [config]="configCountryCode"
+                                                            id="countryCode" [options]="countryCode"
+                                                            [disabled]="isDisabled" formControlName="country_code"
+                                                            [multiple]="false" id="countryCode"
+                                                            [ngClass]="{'is-invalid':f.country_code.errors && submitted}">
+                                                        </ngx-select-dropdown>
+                                                        <div *ngIf="(resendSubmitted||submitted) && f.country_code.errors"
+                                                            class="invalid-feedback invalid-msg">
+                                                            <div *ngIf="f.country_code.errors.required">
+                                                                {{language.country_code}} {{language.is_required}}
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" id="mobileNo" class="mobileNo"
+                                                            formControlName="phone_number" placeholder="98989898998"
+                                                            [attr.disabled]="isDisabled? '' : null"
+                                                            [ngClass]="{ 'is-invalid': (resendSubmitted||submitted) && f.phone_number.errors }" />
+                                                        <div *ngIf=" (resendSubmitted||submitted) &&  f.phone_number.errors"
+                                                            class="invalid-feedback  invalid-msg-phone">
+                                                            <div *ngIf="f.phone_number.errors.required">
+                                                                {{language.phone_number}} {{language.is_required}}</div>
+                                                            <div *ngIf=" f.phone_number.errors.pattern">
+                                                                {{language.phone_number_must_be_number_at_least_digit}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <small class="font_weight_500">{{language.not_received_yet}}
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <small
+                                                                class="float-right text-primary font_weight_600 resend_btn"
+                                                                [ngClass]="{'is_not_submit':isDisabled ==false}"
+                                                                (click)="isDisabled==true?resendOtp():''">{{language.resend}}
+                                                            </small>
+                                                            <small
+                                                                class="float-right text-primary mr-3 font_weight_600 small_edit"
+                                                                (click)="editPhoneNo()">{{isDisabled==false?ok:edit}}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control text-center otp_text"
+                                                        id="registering" placeholder="{{language.enter_otp}}"
+                                                        formControlName="otp"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.otp.errors }" />
+                                                    <div *ngIf="submitted && f.otp.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.otp.errors.required">{{language.otp_is_required}}
+                                                        </div>
+                                                        <div *ngIf="f.otp.errors.pattern">{{language.otp_must_be_digit}}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12">
+
+                                                <div class="text-center login_signup_email  ">
+                                                    <a (click)="checkOtp(content)" type="submit"
+                                                        class="btn rounded-pill mt-5">{{language.register_now}} </a>
+                                                    <!-- data-toggle="modal" data-target="#resend_link" -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <!-- ./Sign up form -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Login -->
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+    <!-- Modal -->
+    <ng-template #content let-modal class="modal-dialog modal-dialog-centered">
+        <!-- <div class="modal fade " id="resend_link" tabindex="-1" role="dialog" aria-labelledby="resend_link"
+            aria-hidden="true"> -->
+        <!-- <div class="modal-header"> -->
+
+        <!-- <div class="modal-header border-0">
+            <h5 class="modal-title" id="resend_link"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div> -->
+        <div class="modal-body px-5">
+            <div class="resend_link">
+                <p>{{language.your_phone_number_has_been_verified_successfully}}</p>
+
+                <div class="text-center login_signup_email  ">
+                    <a class="btn rounded-pill mt-3" (click)="modal.dismiss('Cross click')"
+                        routerLink="/profile">{{language.continue}} </a>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <!-- </div> -->
+    </ng-template>
+    <!-- ./ Modal -->
+</div>
+<!-- main wrapper -->

@@ -1,0 +1,16 @@
+#profile_investor{
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+.uploaded_file{
+    text-align: center;
+}
+.col-sm-6:empty{
+    display: none;
+}
+.ngx-dropdown-container .ngx-dropdown-button {
+    margin-top: -6px !important;
+}
+
+

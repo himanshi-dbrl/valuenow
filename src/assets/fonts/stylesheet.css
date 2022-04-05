@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-Regular.eot');
+    src: url('Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Montserrat-Regular.woff2') format('woff2'),
+        url('Montserrat-Regular.woff') format('woff'),
+        url('Montserrat-Regular.ttf') format('truetype'),
+        url('Montserrat-Regular.svg#Montserrat-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-Medium.eot');
+    src: url('Montserrat-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Montserrat-Medium.woff2') format('woff2'),
+        url('Montserrat-Medium.woff') format('woff'),
+        url('Montserrat-Medium.ttf') format('truetype'),
+        url('Montserrat-Medium.svg#Montserrat-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-SemiBold.eot');
+    src: url('Montserrat-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('Montserrat-SemiBold.woff2') format('woff2'),
+        url('Montserrat-SemiBold.woff') format('woff'),
+        url('Montserrat-SemiBold.ttf') format('truetype'),
+        url('Montserrat-SemiBold.svg#Montserrat-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('Montserrat-Bold.eot');
+    src: url('Montserrat-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Montserrat-Bold.woff2') format('woff2'),
+        url('Montserrat-Bold.woff') format('woff'),
+        url('Montserrat-Bold.ttf') format('truetype'),
+        url('Montserrat-Bold.svg#Montserrat-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GE SS Two';
+    src: url('GESSTwoLight-Light.eot');
+    src: url('GESSTwoLight-Light.eot?#iefix') format('embedded-opentype'),
+        url('GESSTwoLight-Light.woff2') format('woff2'),
+        url('GESSTwoLight-Light.woff') format('woff'),
+        url('GESSTwoLight-Light.ttf') format('truetype'),
+        url('GESSTwoLight-Light.svg#GESSTwoLight-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GE SS Two';
+    src: url('GESSTwoMedium-Medium.eot');
+    src: url('GESSTwoMedium-Medium.eot?#iefix') format('embedded-opentype'),
+        url('GESSTwoMedium-Medium.woff2') format('woff2'),
+        url('GESSTwoMedium-Medium.woff') format('woff'),
+        url('GESSTwoMedium-Medium.ttf') format('truetype'),
+        url('GESSTwoMedium-Medium.svg#GESSTwoMedium-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('NotoKufiArabic.eot');
+    src: url('NotoKufiArabic.eot?#iefix') format('embedded-opentype'),
+        url('NotoKufiArabic.woff2') format('woff2'),
+        url('NotoKufiArabic.woff') format('woff'),
+        url('NotoKufiArabic.ttf') format('truetype'),
+        url('NotoKufiArabic.svg#NotoKufiArabic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('NotoKufiArabic_1.eot');
+    src: url('NotoKufiArabic_1.eot?#iefix') format('embedded-opentype'),
+        url('NotoKufiArabic_1.woff2') format('woff2'),
+        url('NotoKufiArabic_1.woff') format('woff'),
+        url('NotoKufiArabic_1.ttf') format('truetype'),
+        url('NotoKufiArabic_1.svg#NotoKufiArabic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url('NotoKufiArabic-Bold.eot');
+    src: url('NotoKufiArabic-Bold.eot?#iefix') format('embedded-opentype'),
+        url('NotoKufiArabic-Bold.woff2') format('woff2'),
+        url('NotoKufiArabic-Bold.woff') format('woff'),
+        url('NotoKufiArabic-Bold.ttf') format('truetype'),
+        url('NotoKufiArabic-Bold.svg#NotoKufiArabic-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

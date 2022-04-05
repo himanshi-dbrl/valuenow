@@ -1,0 +1,29 @@
+.filter_dropdown{
+    float: right;
+    position: relative;
+    background: #fff;
+    border-radius: 30px;
+    margin-left: 10px;
+    color: #0073C6;
+    padding: 5px 15px;
+}
+.filter_dropdown .dropdown-content{
+    /* left: initial;
+    min-width: 200px; */
+    position: fixed;
+        top: auto;
+        left: auto;
+        width: inherit;
+}
+.filter_dropdown .select_list li{
+    padding: 5px 10px 5px;
+}
+:lang(ar) .filter_dropdown{
+    margin-right: 10px;
+    margin-left: initial;
+}
+
+:lang(ar) .filter_dropdown .dropdown-content{
+    right:initial;
+    left: 0;
+}

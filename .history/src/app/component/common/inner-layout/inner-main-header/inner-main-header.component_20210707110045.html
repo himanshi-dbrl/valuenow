@@ -1,0 +1,55 @@
+<app-inner-top-header></app-inner-top-header>
+<nav class="navbar navbar-expand-sm navbar-light theam-main-navbar">
+  <!-- Site Logo -->
+  <a class="navbar-brand" [routerLink]="['https://valuenow.net/']">
+    <img src="./assets/images/logo.png" alt="valuenow" />
+  </a>
+  <div class="collapse navbar-collapse" id="collapsibleNavId">
+    <!-- Menu Links -->
+    <ul class="navbar-nav ml-auto ml-md-1 mr-md-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link"
+          href="{{language.typeOf=='1'?'https://valuenow.net/?login=true':'https://valuenow.net/ar/?login=true'}}">{{language.home}}
+          <span class=" sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="{{language.typeOf=='1'?'https://valuenow.net/services/?login=true':'https://valuenow.net/ar/services/?login=true'}}">{{language.our_services}}</a>
+      </li>
+      <li class=" nav-item">
+        <a class="nav-link"
+          href="{{language.typeOf=='1'?'https://valuenow.net/prices-and-packages/?login=true':'https://valuenow.net/ar/prices-and-packages/?login=true'}}">{{language.packages}}</a>
+      </li>
+      <li class=" nav-item">
+        <a class="nav-link"
+          href="{{language.typeOf=='1'?'https://valuenow.net/about/?login=true':'https://valuenow.net/ar/about/?login=true'}}">{{language.about_us}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="{{language.typeOf=='1'?'https://valuenow.net/contact/?login=true':'https://valuenow.net/ar/contact/?login=true'}}">{{language.contact_us}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="{{language.typeOf=='1'?'https://valuenow.net/blog/?login=true':'https://valuenow.net/ar/blog/?login=true'}}">{{language.blog}}</a>
+      </li>
+    </ul>
+    <!-- ./ Menu Links -->
+  </div>
+  <div class=" menu_activity">
+    <a [routerLink]="['/chat']">
+      <div class="activity_chat">
+        <img src="./assets/images/chat.png">
+        <span>{{chatCount}}</span>
+      </div>
+    </a>
+    <a [routerLink]="['/notification']">
+      <div class="activity_chat">
+        <img src="./assets/images/bell.png">
+        <span>{{notificationCount}}</span>
+      </div>
+    </a>
+  </div>
+  <div class="menu__extra--button ml-auto text-white d-block d-lg-none">
+    <i class="fa fa-bars fz30" aria-hidden="true"></i>
+  </div>
+</nav>

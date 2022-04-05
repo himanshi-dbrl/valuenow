@@ -1,0 +1,318 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~ngx-toastr/toastr';
+/* @import "~@ng-select/ng-select/themes/ant.design.theme.css";  */
+
+
+.modal-holder {
+    animation-name: example;
+    animation-duration: 0.3s;
+}
+
+@keyframes example {
+    0% {
+        transform: scale(0.5)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    background-image: none;
+    border-color: #EF4438;
+}
+
+/*  Another Dropdown */
+
+.nsdicon-angle-down {
+    font-family: fontawesome;
+}
+
+.nsdicon-angle-down:before {
+    font-family: fontawesome;
+    content: "\f0dd";
+}
+
+.nsdicon-close:before,
+.nsdicon-remove:before,
+.nsdicon-times:before {
+    content: "\f00d";
+    font-family: fontawesome;
+}
+
+button.ngx-dropdown-button.disabled {
+    background-color: #EBEBE4 !important;
+}
+
+button.ngx-dropdown-button {
+    border: 1px solid #6c6d70 !important;
+    border-radius: 10px !important;
+    height: 54px;
+    color: #000 !important;
+    font-weight: 600 !important;
+    font-family: 'Montserrat' !important;
+    font-size: 16px;
+
+}
+
+span.nsdicon-angle-down {
+    right: 10px;
+}
+
+.countryCode button.ngx-dropdown-button {
+    border: 1px solid transparent !important;
+    border-radius: 10px 0px 0px 10px !important;
+    height: 52px;
+    color: #000 !important;
+    font-weight: 600 !important;
+    font-family: 'Montserrat' !important;
+    font-size: 16px;
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px !important;
+}
+
+ngx-select-dropdown.countryCode {
+    width: 160px;
+}
+
+.countryCode span.nsdicon-angle-down ,
+span.nsdicon-angle-down{
+    right: 15px;
+    top:-3px;
+}
+
+.ngx-dropdown-list-container {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: #EBEBE4;
+}
+
+.phone_number_validate {
+    color: #dc3545;
+    font-size: 80%;
+    float: left;
+}
+
+.custom_errors{
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+
+}
+
+.pricing_main .col {
+    padding: 0px;
+}
+
+.plan {
+    transition: all 0.5s;
+}
+
+.plan:hover {
+    z-index: 101;
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+    margin-top: -20px;
+    margin-top: -20px;
+}
+.plan:hover .plan-blank{
+    border-radius: 6px 6px 0px 0px;
+}
+.plan-blank,
+.cursor_pointer{
+    cursor: pointer;
+}
+.plan-blank,
+
+.plan-heading {
+    
+    background-color: rgba(64, 151, 244, 1);
+    /* background color for non-css3 browsers */
+    /* gradient */
+    background-image: linear-gradient(top, rgba(74, 161, 254, 1), rgba(51, 138, 231, 1));
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(74,161,254,1)', endColorstr='rgba(51,138,231,1)');
+    /* IE5.5 - 7 */
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(74,161,254,1)', endColorstr='rgba(51,138,231,1)');
+    /* IE8 */
+    background: -ms-linear-gradient(top, rgba(74, 161, 254, 1), rgba(51, 138, 231, 1));
+    /* IE9 */
+    background: -moz-linear-gradient(top, rgba(74, 161, 254, 1), rgba(51, 138, 231, 1));
+    /* Firefox */
+    background: -o-linear-gradient(top, rgba(74, 161, 254, 1), rgba(51, 138, 231, 1));
+    /* Opera 11  */
+    background: -webkit-linear-gradient(top, rgba(74, 161, 254, 1), rgba(51, 138, 231, 1));
+    /* Chrome 11  */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(74, 161, 254, 1)), color-stop(1, rgba(51, 138, 231, 1)));
+    /* Chrome 10, Safari */
+
+    border-bottom: 1px solid rgba(34, 121, 214, 1);
+
+
+}
+
+.plan-blank{
+    text-align: center;
+    min-height: 45px;
+    line-height: 45px;
+    color: rgb(11, 11, 19);
+    font-family: arial, helvetica, sans-serif;
+    font-size: 14pt;
+}
+.plan-main .plan-blank{
+    border-top-left-radius: 6px;
+    text-align: center;
+}
+.sec-three .plan-blank{
+    border-top-right-radius: 6px;
+    text-align: center;
+}
+.plan-heading{
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+    min-height: 55px;
+    line-height: 55px;
+}
+.plan-type .plan-cell {
+    padding: 7px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+}
+.plan-type .plan-cell p{
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+.plan-type .plan-cell:nth-child(odd){
+    background-color: #DBFFFF;
+}
+.plan-type .plan-cell:nth-child(even){
+    background-color: #EFFFFF;;
+}
+.sec-one .plan-type .plan-cell:nth-child(odd),
+.sec-three .plan-type .plan-cell:nth-child(odd){
+    background-color: #EFFFFF;
+}
+.sec-one .plan-type .plan-cell:nth-child(even),
+.sec-three .plan-type .plan-cell:nth-child(even){
+    background-color: #FFFFFF;
+}
+.pricing_color div:nth-child(odd) .plan-type .plan-cell:nth-child(odd){
+    background-color: #DBFFFF;
+}
+.pricing_color div:nth-child(odd) .plan-type .plan-cell:nth-child(even){
+    background-color: #EFFFFF;
+}
+.pricing_main .custom-control.custom-checkbox{padding-left: 0;}
+.pricing_main .custom-checkbox .custom-control-label::before {
+    border-radius: 0rem;
+}
+
+label.custom-control-label {
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+label.custom-control-label::before, label.custom-control-label::after{
+  right: 0;
+  left: auto;
+}
+.pricing_main .custom-control-label::before{
+    top: .20rem;
+}
+.cell-buy-now{
+    box-shadow: 0px 8px 30px #0073c64d !important;
+    background: #0073c6 !important;
+    color: #fff !important;
+    padding: 16px 50px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+.cell-buy-now:hover{
+    background-color: #000 !important;
+    color: #fff;
+}
+@media (max-width: 991.98px) { 
+    .pricing_main{
+        overflow-x: scroll;
+        padding:0px 0px 30px;
+    }
+    .pricing_main > div{
+        width: 90em;
+    }
+    .pricing_main .plan-main{
+        width: 30em;
+    }
+ }
+.cursor-pointer{
+    cursor: pointer;
+}
+.select-height .ngx-dropdown-list-container {
+    max-height: 150px !important;
+}
+
+:lang(ar) .pwd_show_icon span i{
+    left: 20px;
+    right: inherit;
+}
+:lang(ar) .ngx-dropdown-container .ngx-dropdown-button{
+    text-align: right !important;
+}
+:lang(ar) .ngx-dropdown-container button span {
+    float: right !important;
+}
+:lang(ar) span.nsdicon-angle-down {
+    right: 0px !important;
+}
+:lang(ar) .ngx-dropdown-container button .nsdicon-angle-down {
+    float: left !important;
+}
+:lang(ar) .mobleNo_select .mobileNo {
+    border-radius: 10px 0px 0px 10px !important;
+}
+:lang(ar) .ngx-dropdown-container .ngx-dropdown-list-container ul {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    list-style-type: none;
+    padding-right:initial ;
+    padding-left: 0px;
+}
+
+:lang(ar) .ngx-dropdown-container .ngx-dropdown-list-container ul li span.nsdicon-close {
+    float: right;
+    margin-left: 10px;
+}
+:lang(ar) .dropbtn:after{
+    left: -15px;
+    position: absolute;
+}html:lang(ar) .message_post label {
+    right: auto;
+    left: 20px;
+}
+
+html:lang(ar) .message_post button {
+    right: auto;
+    left: 20px;
+}
+
+html:lang(ar) .chat_user_list .chat_count{
+    right: auto;
+    left: 20px;
+}

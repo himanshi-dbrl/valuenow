@@ -1,0 +1,12 @@
+.image_custom{
+    width: 56px;
+    height: 56px;
+}
+
+.business_image_custom{
+    width: 115px !important;
+    height: 84px !important;
+}
+.check_empty:empty{
+    display: none;
+}

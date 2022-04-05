@@ -1,0 +1,21 @@
+.custom_errors{
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+
+}
+
+.col-sm-6:empty{
+    display: none;
+}
+
+.mobleNo_select {
+    padding: 0px;
+    background: #EBEBE4;
+}
+
+.mobleNo_select .mobileNo {
+    margin-top: 0px;
+    border-radius: 0px 10px 10px 0px;
+}

@@ -1,0 +1,19 @@
+.privayAccept{
+    text-align: center;
+    color: #dc3545;
+    font-size: 80%;
+}
+.phone_number_validate{
+    color: #dc3545;
+    font-size:80%;
+    float: left;
+}
+.mobleNo_select {
+    padding: 0px;
+    background: #EBEBE4;
+}
+
+.mobleNo_select .mobileNo {
+    margin-top: 0px;
+    border-radius: 0px 10px 10px 0px;
+}
