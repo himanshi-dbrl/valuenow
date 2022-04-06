@@ -37,7 +37,7 @@
     <div class="col-md-7">
         <div class="posted__sort--details">
             <a (click)="details(data)" class="cursor_pointer">
-                <h4 class="fz20">
+                <h4 class="fz20" *ngIf="data.get_workplace">
                     {{data.get_workplace !=undefined?(data.get_workplace.business_name.length>50)? (data.get_workplace.business_name| titlecase | slice:0:50)+'...':(data.get_workplace.business_name| titlecase) :(data.get_business.business_name.length>50)? (data.get_business.business_name| titlecase | slice:0:50)+'...':(data.get_business.business_name| titlecase)}}
                     <!-- {{(data.get_business.business_name.length>50)? (data.get_business.business_name| titlecase | slice:0:50)+'...':(data.get_business.business_name| titlecase)}} -->
                 </h4>

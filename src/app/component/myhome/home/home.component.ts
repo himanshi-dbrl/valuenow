@@ -201,7 +201,9 @@ export class HomeComponent implements OnInit {
         this.listData.filter(element => {
           if (element.get_business == undefined) {
             element['get_business'] = element['get_workplace'];
-            element['get_business']['get_business_files'] = element['get_workplace']['get_files'];
+            if(element['get_business']){
+              element['get_business']['get_business_files'] = element['get_workplace']['get_files'];
+            }
           }
         });
         this.notFound = false;

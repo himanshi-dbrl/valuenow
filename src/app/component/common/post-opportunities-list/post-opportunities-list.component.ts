@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PostOpportunitiesListComponent implements OnInit {
   @Input() data: any;
+
   @Input() page: string;
   @Input() index: number;
   @Output() updateStatus = new EventEmitter<any>();
@@ -36,7 +37,7 @@ export class PostOpportunitiesListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log(this.data,'dsf');
   }
 
   details(data) {
@@ -95,6 +96,7 @@ export class PostOpportunitiesListComponent implements OnInit {
     this.commonService.commonPostCall(url, req).subscribe(data => {
       if (data.status = 200) {
         this.data['is_bookmarked'] = data.is_bookmarked == 1 ? 0 : 1;
+      
         this.updateStatusData(index, status);
         if (this.language.typeOf == "1") {
           this.alert.success(data.message);
